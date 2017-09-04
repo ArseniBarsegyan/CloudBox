@@ -58,7 +58,19 @@ namespace CloudBox.DAL.Repositories
 
         public void RenameFileInDataBase(int userId, string oldFileName, string newFileName)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("RenameFileInDataBase", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@userID", userId);
+                command.Parameters.AddWithValue("@oldName", oldFileName);
+                command.Parameters.AddWithValue("@newName", newFileName);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
