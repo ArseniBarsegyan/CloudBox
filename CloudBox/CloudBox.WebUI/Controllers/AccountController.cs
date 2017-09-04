@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Web.Mvc;
 using System.Web.Security;
+using CloudBox.DAL.Interfaces;
+using CloudBox.DAL.Repositories;
 using WebMatrix.WebData;
 using CloudBox.WebUI.Filters;
 using CloudBox.WebUI.Models;
@@ -10,6 +13,13 @@ namespace CloudBox.WebUI.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private IRepository _repository;
+
+        public AccountController()
+        {
+            _repository = new Repository(ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString);
+        }
+
         //
         // GET: /Account/Login
 
