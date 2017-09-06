@@ -42,7 +42,7 @@ namespace CloudBox.WebUI.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Manage", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -90,7 +90,7 @@ namespace CloudBox.WebUI.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError(string.Empty, ErrorCodeToString(e.StatusCode));
                 }
             }
 
@@ -101,23 +101,48 @@ namespace CloudBox.WebUI.Controllers
         //
         // GET: /Account/Manage
 
+        [HttpGet]
         public ActionResult Manage()
         {
+            var username = User.Identity.Name;
+            CheckIfDirectoryWithUserNameExists(username);
+
+            //Send into view current path, it's directories and files
+            ViewBag.CurrentPath = username;
             return View();
         }
 
-        //Get all files in user directory
-        private IEnumerable<string> GetAllFilesByUserName(string username)
+        //Returns partial view with all files and directories by sending path as param
+        public ActionResult DirectoriesAndFilesSummary(string path)
         {
-            CheckIfDirectoryWithUserNameExists(username);
-            return Directory.GetDirectories(Server.MapPath("~/Files/" + username));
+            ViewBag.DirectoriesAndFilesRelativePath = path;
+
+            ViewBag.Directories = GetAllDirectoriesByPath(path);
+            ViewBag.Files = GetAllFilesByPath(path);
+
+            return PartialView();
         }
 
-        //Get all folders in user directory
-        private IEnumerable<string> GetAllDirectoriesByUserName(string username)
+        //Get all directories from path
+        private IEnumerable<string> GetAllDirectoriesByPath(string path)
         {
-            CheckIfDirectoryWithUserNameExists(username);
-            return Directory.GetDirectories(Server.MapPath("~/Files/" + username));
+            var directoriesPaths = Directory.GetDirectories(Server.MapPath("~/Files/" + path));
+            for (var i = 0; i < directoriesPaths.Length; i++)
+            {
+                directoriesPaths[i] = new FileInfo(directoriesPaths[i]).Name;
+            }
+            return directoriesPaths;
+        }
+
+        //Get all files from path
+        private IEnumerable<string> GetAllFilesByPath(string path)
+        {
+            var filesPaths = Directory.GetFiles(Server.MapPath("~/Files/" + path));
+            for (var i = 0; i < filesPaths.Length; i++)
+            {
+                filesPaths[i] = new FileInfo(filesPaths[i]).Name;
+            }
+            return filesPaths;
         }
 
         //Check if Server contains user folder. If not, create it
