@@ -1,0 +1,23 @@
+﻿<table class="table table-hover table-responsive">
+    <tr>
+        <th colspan="3">Options in development</th>
+    </tr>
+    @foreach (var directory in ViewBag.Directories)
+    {
+        <tr>
+            <td id="@directory" onclick="appendFolderNameToFullPath(@directory)">@directory</td>
+        </tr>
+    }
+    @foreach (var file in ViewBag.Files)
+    {
+        <tr>
+            <td><a href="~/Files/@ViewBag.DirectoriesAndFilesRelativePath/@file">@file</a></td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    function appendFolderNameToFullPath(name) {
+        $("#currentPath").append("\\", name);
+    }
+</script>
