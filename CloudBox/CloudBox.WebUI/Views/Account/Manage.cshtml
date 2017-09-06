@@ -1,5 +1,15 @@
 ﻿<!--This page will return all files and directories of current user by his name-->
-@model CloudBox.WebUI.Models.LocalPasswordModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "View Storage";
 }
+
+<div id="currentPath">@ViewBag.CurrentPath</div>
+<button id="linkToPrevDirectory" class="btn btn-default">...</button>
+
+<div id="resultTable"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#resultTable").load("@Url.Action("DirectoriesAndFilesSummary","Account", new {path = ViewBag.CurrentPath})");
+    });
+</script>
