@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using CloudBox.DAL.Interfaces;
@@ -101,6 +104,31 @@ namespace CloudBox.WebUI.Controllers
         public ActionResult Manage()
         {
             return View();
+        }
+
+        //Get all files in user directory
+        private IEnumerable<string> GetAllFilesByUserName(string username)
+        {
+            CheckIfDirectoryWithUserNameExists(username);
+            return Directory.GetDirectories(Server.MapPath("~/Files/" + username));
+        }
+
+        //Get all folders in user directory
+        private IEnumerable<string> GetAllDirectoriesByUserName(string username)
+        {
+            CheckIfDirectoryWithUserNameExists(username);
+            return Directory.GetDirectories(Server.MapPath("~/Files/" + username));
+        }
+
+        //Check if Server contains user folder. If not, create it
+        private void CheckIfDirectoryWithUserNameExists(string username)
+        {
+            var usersDirectories = Directory.GetDirectories(Server.MapPath("~/Files/"));
+            var directoriesNames = usersDirectories.Select(directoryFullName => new FileInfo(directoryFullName).Name);
+            if (!directoriesNames.Contains(username))
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Files/" + username));
+            }
         }
 
         #region Helpers
