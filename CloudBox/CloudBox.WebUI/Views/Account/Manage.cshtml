@@ -14,12 +14,35 @@
     });
 
     function linkToPrevClicked() {
-        if ($("#currentPath").text() == '@User.Identity.Name') {
+        if ($("#currentPath").text() == "@User.Identity.Name") {
 
         } else {
             var currentPath = $("#currentPath").text();
             var newPath = currentPath.substring(0, currentPath.lastIndexOf('\\'));
             $("#currentPath").text(newPath);
+            
+            //Here i will call Account Controller method and pass a value to it
+            $(document).ready(function () {
+                callUrl();
+            });
         }
     };
+
+    function onFolderClicked() {
+        //Here i will call Account Controller method and pass a value to it
+        $(document).ready(function () {
+            callUrl();
+        });
+    };
+
+    function callUrl() {
+        $.ajax({
+            url: "@Url.Action("DirectoriesAndFilesSummary", "Account")",
+            data: { path: $("#currentPath").text() },
+            type: "GET",
+            success: function (result) {
+                $("#resultTable").html(result);
+            }
+        });
+    }
 </script>
