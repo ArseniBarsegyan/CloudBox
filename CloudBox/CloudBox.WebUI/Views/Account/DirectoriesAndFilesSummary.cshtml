@@ -5,7 +5,7 @@
     @foreach (var directory in ViewBag.Directories)
     {
         <tr>
-            <td id="@directory" onclick="appendFolderNameToFullPath(@directory)">@directory</td>
+            <td id="@directory" onclick="$('#currentPath').append('\\@directory')">@directory</td>
         </tr>
     }
     @foreach (var file in ViewBag.Files)
@@ -15,9 +15,3 @@
         </tr>
     }
 </table>
-
-<script type="text/javascript">
-    function appendFolderNameToFullPath(name) {
-        $("#currentPath").append("\\", name);
-    }
-</script>
