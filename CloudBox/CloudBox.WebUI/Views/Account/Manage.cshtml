@@ -3,8 +3,8 @@
     ViewBag.Title = "View Storage";
 }
 
-<div id="currentPath">@ViewBag.CurrentPath</div>
-<button id="linkToPrevDirectory" class="btn btn-default">...</button>
+<p id="currentPath">@ViewBag.CurrentPath</p>
+<button id="linkToPrevDirectory" class="btn btn-default" onclick="linkToPrevClicked()">...</button>
 
 <div id="resultTable"></div>
 
@@ -12,4 +12,14 @@
     $(document).ready(function () {
         $("#resultTable").load("@Url.Action("DirectoriesAndFilesSummary","Account", new {path = ViewBag.CurrentPath})");
     });
+
+    function linkToPrevClicked() {
+        if ($("#currentPath").text() == '@User.Identity.Name') {
+
+        } else {
+            var currentPath = $("#currentPath").text();
+            var newPath = currentPath.substring(0, currentPath.lastIndexOf('\\'));
+            $("#currentPath").text(newPath);
+        }
+    };
 </script>
