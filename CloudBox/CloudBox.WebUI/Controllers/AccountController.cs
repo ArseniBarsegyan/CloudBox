@@ -156,6 +156,23 @@ namespace CloudBox.WebUI.Controllers
             }
         }
 
+        //AJAX upload file by selected path functionality
+        [HttpPost]
+        public JsonResult Upload(string path)
+        {
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                if (upload != null)
+                {
+                    string fileName = Path.GetFileName(upload.FileName);
+                    //Save file in path
+                    upload.SaveAs(Server.MapPath("~/Files/" + path + fileName));
+                }
+            }
+            return Json("File upload");
+        }
+
         #region Helpers
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
