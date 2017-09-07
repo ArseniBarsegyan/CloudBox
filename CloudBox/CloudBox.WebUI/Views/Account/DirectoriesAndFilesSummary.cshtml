@@ -5,7 +5,7 @@
     @foreach (var directory in ViewBag.Directories)
     {
         <tr>
-            <td id="@directory" onclick="$('#currentPath').append('\\@directory')">@directory</td>
+            <td id="@directory" onclick="$('#currentPath').append('\\@directory'); onFolderClicked();">@directory</td>
         </tr>
     }
     @foreach (var file in ViewBag.Files)
