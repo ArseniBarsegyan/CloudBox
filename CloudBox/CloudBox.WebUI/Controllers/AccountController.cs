@@ -156,23 +156,37 @@ namespace CloudBox.WebUI.Controllers
             }
         }
 
-        //AJAX upload file by selected path functionality
+        //AJAX upload file
         [HttpPost]
-        public JsonResult Upload(string path)
+        public JsonResult Upload()
         {
             foreach (string file in Request.Files)
             {
                 var upload = Request.Files[file];
                 if (upload != null)
                 {
-                    string fileName = Path.GetFileName(upload.FileName);
-                    //Save file in path
-                    upload.SaveAs(Server.MapPath("~/Files/" + path + fileName));
+                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    upload.SaveAs(Server.MapPath("~/Files/" + Request.Params["path"] + fileName));
                 }
             }
-            return Json("File upload");
+            return Json("File uploaded");
         }
 
+        //Create folder method
+        [HttpPost]
+        public JsonResult CreateFolder()
+        {
+            if (Request.Params["path"] != null)
+            {
+                string fullPath = Server.MapPath("~/Files/" + Request.Params["path"]);
+                if (Directory.Exists(fullPath))
+                {
+                    return Json("Directory already exists");
+                }
+                Directory.CreateDirectory(fullPath);
+            }
+            return Json("Directory created");
+        }
         #region Helpers
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
