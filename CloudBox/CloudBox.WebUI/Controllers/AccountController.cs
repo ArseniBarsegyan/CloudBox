@@ -129,7 +129,8 @@ namespace CloudBox.WebUI.Controllers
             var directoriesPaths = Directory.GetDirectories(Server.MapPath("~/Files/" + path));
             for (var i = 0; i < directoriesPaths.Length; i++)
             {
-                directoriesPaths[i] = new FileInfo(directoriesPaths[i]).Name;
+                FileInfo fileInfo = new FileInfo(directoriesPaths[i]);
+                directoriesPaths[i] = fileInfo.Name + "[" + fileInfo.CreationTime;
             }
             return directoriesPaths;
         }
@@ -140,7 +141,8 @@ namespace CloudBox.WebUI.Controllers
             var filesPaths = Directory.GetFiles(Server.MapPath("~/Files/" + path));
             for (var i = 0; i < filesPaths.Length; i++)
             {
-                filesPaths[i] = new FileInfo(filesPaths[i]).Name;
+                FileInfo fileInfo = new FileInfo(filesPaths[i]);
+                filesPaths[i] = fileInfo.Name + "[" + fileInfo.CreationTime;
             }
             return filesPaths;
         }
@@ -172,7 +174,7 @@ namespace CloudBox.WebUI.Controllers
             return Json("File uploaded");
         }
 
-        //Create folder method
+        //Create folder
         [HttpPost]
         public JsonResult CreateFolder()
         {
@@ -186,6 +188,25 @@ namespace CloudBox.WebUI.Controllers
                 Directory.CreateDirectory(fullPath);
             }
             return Json("Directory created");
+        }
+
+        //Remove file or directory(directory delete is recursive)
+        [HttpGet]
+        public JsonResult RemoveElement(string path)
+        {
+            if (path != null)
+            {
+                string fullPath = Server.MapPath("~/Files/" + path);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                else if (Directory.Exists(fullPath))
+                {
+                    Directory.Delete(fullPath, true);
+                }
+            }
+            return Json("Deleted succussfull", JsonRequestBehavior.AllowGet);
         }
         #region Helpers
 
