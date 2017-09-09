@@ -1,19 +1,31 @@
 ﻿<table class="table table-hover table-responsive">
     <tr>
-        <td>
-            <p id="linkToPrevDirectory" onclick="linkToPrevClicked()">...</p>
+        <td ondblclick="linkToPrevDoubleClicked()">
+            <p id="linkToPrevDirectory">...</p>
         </td>
     </tr>
     @foreach (var directory in ViewBag.Directories)
-    {
+    {        
+        var directoryInfo = directory.ToString().Split('[');
+        string directoryName = directoryInfo[0];
+        string directoryCreateTime = directoryInfo[1];
+    
         <tr>
-            <td id="@directory" onclick="$('#currentPath').append('\\@directory'); onFolderClicked();">@directory</td>
+            <td id="@directoryName" ondblclick="$('#currentPath').append('\\@directoryName');onFolderDoubleClicked();">@directoryName</td>
+            <td>@directoryCreateTime</td>
+            <td onclick="removeButtonClicked('@directoryName')"><a>Delete</a></td>
         </tr>
     }
     @foreach (var file in ViewBag.Files)
     {
+        var fileInfo = file.ToString().Split('[');
+        string fileName = fileInfo[0];
+        string fileCreationTime = fileInfo[1];
+        
         <tr>
-            <td><a href="~/Files/@ViewBag.DirectoriesAndFilesRelativePath/@file">@file</a></td>
+            <td id="@fileName"><a href="~/Files/@ViewBag.DirectoriesAndFilesRelativePath/@fileName">@fileName</a></td>
+            <td>@fileCreationTime</td>
+            <td onclick="removeButtonClicked('@fileName')"><a>Delete</a></td>
         </tr>
     }
 </table>
