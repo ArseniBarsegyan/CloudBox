@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBox.DAL", "CloudBox.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBox.WPFClient", "CloudBox.WPFClient\CloudBox.WPFClient.csproj", "{6215A52E-CB93-4B67-BBA3-6761A5D969FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBoxService", "CloudBoxService\CloudBoxService.csproj", "{5468B555-3DCB-4210-94F0-AE84C69F036C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBoxServiceHost", "CloudBoxServiceHost\CloudBoxServiceHost.csproj", "{CE5DF4F8-7A80-4C6F-9AC9-2F1101BC3F4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{6215A52E-CB93-4B67-BBA3-6761A5D969FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6215A52E-CB93-4B67-BBA3-6761A5D969FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6215A52E-CB93-4B67-BBA3-6761A5D969FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5468B555-3DCB-4210-94F0-AE84C69F036C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5468B555-3DCB-4210-94F0-AE84C69F036C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5468B555-3DCB-4210-94F0-AE84C69F036C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5468B555-3DCB-4210-94F0-AE84C69F036C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE5DF4F8-7A80-4C6F-9AC9-2F1101BC3F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE5DF4F8-7A80-4C6F-9AC9-2F1101BC3F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE5DF4F8-7A80-4C6F-9AC9-2F1101BC3F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE5DF4F8-7A80-4C6F-9AC9-2F1101BC3F4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
