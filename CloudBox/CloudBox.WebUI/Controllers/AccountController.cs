@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using CloudBox.DAL.Interfaces;
-using CloudBox.DAL.Repositories;
 using WebMatrix.WebData;
 using CloudBox.WebUI.Filters;
 using CloudBox.WebUI.Models;
@@ -16,11 +13,8 @@ namespace CloudBox.WebUI.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        private IRepository _repository;
-
         public AccountController()
         {
-            _repository = new Repository(ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString);
         }
 
         //
@@ -183,11 +177,11 @@ namespace CloudBox.WebUI.Controllers
                 string fullPath = Server.MapPath("~/Files/" + Request.Params["path"]);
                 if (Directory.Exists(fullPath))
                 {
-                    return Json("Directory already exists");
+                    return Json("Folder already exists");
                 }
                 Directory.CreateDirectory(fullPath);
             }
-            return Json("Directory created");
+            return Json("Folder created");
         }
 
         //Remove file or directory(directory delete is recursive)
