@@ -37,7 +37,7 @@ namespace CloudBox.WPFClient.Menu
                     bool result = serviceClient.ValidateUser(userName, userPassword);
                     if (result)
                     {
-
+                        Switcher.Switch(new MainWindow(userName));
                     }
                     else
                     {
