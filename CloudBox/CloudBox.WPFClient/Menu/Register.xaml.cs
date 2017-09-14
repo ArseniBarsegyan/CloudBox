@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CloudBox.WPFClient.Menu
 {
@@ -27,6 +28,11 @@ namespace CloudBox.WPFClient.Menu
 
         //Register User if not exists
         private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Register_OnKeyDown(object sender, KeyEventArgs e)
         {
             throw new NotImplementedException();
         }

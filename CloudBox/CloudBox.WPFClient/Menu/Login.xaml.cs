@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CloudBox.WPFClient.ServiceReference1;
 
 namespace CloudBox.WPFClient.Menu
@@ -24,9 +25,27 @@ namespace CloudBox.WPFClient.Menu
         {
             Switcher.Switch(new MainMenu());
         }
+        
+        private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            LoginConfirmed();
+        }
+        
+        //Enter call login method, escape returns back to MainMenu
+        private void Login_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoginConfirmed();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Switcher.Switch(new MainMenu());
+            }
+        }
 
         //If validation successfull go to main page, else show message with validation error
-        private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
+        private void LoginConfirmed()
         {
             using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
             {
