@@ -25,7 +25,6 @@ namespace CloudBox.WPFClient.Menu
             {
                 Directory.CreateDirectory(userDirectory);
             }
-            
         }
 
         private void ShowTree(string userName)
