@@ -18,8 +18,29 @@ namespace CloudBox.WPFClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/ValidateUser", ReplyAction="http://tempuri.org/ICloudBoxService/ValidateUserResponse")]
         bool ValidateUser(string username, string password);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPathResponse")]
+        string[] GetAllDirectoriesByPath(string userName, string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudBoxService/GetAllFilesByPathResponse")]
+        string[] GetAllFilesByPath(string userName, string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExistsResponse")]
+        void CheckIfDirectoryWithUserNameExists(string username);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudBoxService/UploadFilesToServerResponse")]
-        bool UploadFilesToServer(byte[][] filesCollection);
+        bool UploadFilesToServer(string userName, string password, byte[] fileContent);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExists", ReplyAction="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExistsResponse")]
+        string CreateFolderIfNotExists(string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/RemoveElement", ReplyAction="http://tempuri.org/ICloudBoxService/RemoveElementResponse")]
+        void RemoveElement(string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/Upload", ReplyAction="http://tempuri.org/ICloudBoxService/UploadResponse")]
+        string Upload(byte[] file, string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetFileLink", ReplyAction="http://tempuri.org/ICloudBoxService/GetFileLinkResponse")]
+        string GetFileLink(string path);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -53,8 +74,36 @@ namespace CloudBox.WPFClient.ServiceReference1 {
             return base.Channel.ValidateUser(username, password);
         }
         
-        public bool UploadFilesToServer(byte[][] filesCollection) {
-            return base.Channel.UploadFilesToServer(filesCollection);
+        public string[] GetAllDirectoriesByPath(string userName, string path) {
+            return base.Channel.GetAllDirectoriesByPath(userName, path);
+        }
+        
+        public string[] GetAllFilesByPath(string userName, string path) {
+            return base.Channel.GetAllFilesByPath(userName, path);
+        }
+        
+        public void CheckIfDirectoryWithUserNameExists(string username) {
+            base.Channel.CheckIfDirectoryWithUserNameExists(username);
+        }
+        
+        public bool UploadFilesToServer(string userName, string password, byte[] fileContent) {
+            return base.Channel.UploadFilesToServer(userName, password, fileContent);
+        }
+        
+        public string CreateFolderIfNotExists(string path) {
+            return base.Channel.CreateFolderIfNotExists(path);
+        }
+        
+        public void RemoveElement(string path) {
+            base.Channel.RemoveElement(path);
+        }
+        
+        public string Upload(byte[] file, string path) {
+            return base.Channel.Upload(file, path);
+        }
+        
+        public string GetFileLink(string path) {
+            return base.Channel.GetFileLink(path);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBox.WebUI", "CloudBox.WebUI\CloudBox.WebUI.csproj", "{763C8A11-5A87-47D1-AEF1-891467D95CC9}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBox.WPFClient", "Cloud
 		{CBA82C6D-ABB7-4DE4-805E-7098E57878F7} = {CBA82C6D-ABB7-4DE4-805E-7098E57878F7}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBoxService", "..\..\TEMP\CloudBoxService\CloudBoxService\CloudBoxService.csproj", "{CBA82C6D-ABB7-4DE4-805E-7098E57878F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBoxService", "..\..\..\.Net Training\TEMP\CloudBoxService\CloudBoxService\CloudBoxService.csproj", "{CBA82C6D-ABB7-4DE4-805E-7098E57878F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBoxServiceHost", "..\..\TEMP\CloudBoxService\CloudBoxServiceHost\CloudBoxServiceHost.csproj", "{A5D34EA3-D0B4-4545-B236-24984A63BF47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudBoxServiceHost", "..\..\..\.Net Training\TEMP\CloudBoxService\CloudBoxServiceHost\CloudBoxServiceHost.csproj", "{A5D34EA3-D0B4-4545-B236-24984A63BF47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

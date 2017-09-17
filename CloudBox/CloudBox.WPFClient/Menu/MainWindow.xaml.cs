@@ -1,6 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using CloudBox.WPFClient.Models;
+using CloudBox.WPFClient.ServiceReference1;
 
 namespace CloudBox.WPFClient.Menu
 {
@@ -9,73 +13,57 @@ namespace CloudBox.WPFClient.Menu
     /// </summary>
     public partial class MainWindow : UserControl
     {
+        private static string _userName;
+
         public MainWindow(string userName)
         {
             InitializeComponent();
+            _userName = userName;
+            CurrentPath.Text = _userName;
             UserNameField.Text = "Hello, " + userName + "!";
-            CreateUserDirectoryIfNotExists(userName);
-            ShowTree(userName);
+            ShowAllFoldersInRootFolder();
         }
 
-        //Create user's folder in 'Accounts\' if not exists and show it in TreeView
-        private void CreateUserDirectoryIfNotExists(string userName)
+        //Check if user folder exists. If not - create it
+        private void ShowAllFoldersInRootFolder()
         {
-            var userDirectory = CreateAccountsDirectoryIfNotExists() + @"\" + userName;
-            if (!Directory.Exists(userDirectory))
+            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
             {
-                Directory.CreateDirectory(userDirectory);
-            }
-        }
-
-        private void ShowTree(string userName)
-        {
-            var userDirectory = CreateAccountsDirectoryIfNotExists() + @"\" + userName;
-
-            DirectoryInfo info = new DirectoryInfo(userDirectory);
-            foreach (var directory in info.GetDirectories())
-            {
-                var item = new TreeViewItem
+                serviceClient.CheckIfDirectoryWithUserNameExists(_userName);
+                var allDirectories = serviceClient.GetAllDirectoriesByPath(_userName, CurrentPath.Text);
+                var allFiles = serviceClient.GetAllFilesByPath(_userName, CurrentPath.Text);
+                foreach (var directory in allDirectories)
                 {
-                    Header = directory.ToString(),
-                    Tag = directory
-                };
-                item.Items.Add("*");
-                TreeView.Items.Add(item);
-            }
-        }
+                    var directoryName = directory.Split('[')[0];
+                    var directoryCreationTime = directory.Split('[')[1];
+                    var directoryModel = new DirectoryModel {Name = directoryName, CreationTime = directoryCreationTime, ActionName = "Delete"};
 
-        //Create folder 'Accounts' if not exists
-        private string CreateAccountsDirectoryIfNotExists()
-        {
-            var accountsPath = System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts";
-            if (!Directory.Exists(accountsPath))
-            {
-                Directory.CreateDirectory(accountsPath);
-            }
-            return accountsPath;
-        }
-
-        private void TreeView_OnExpanded(object sender, RoutedEventArgs e)
-        {
-            var item = (TreeViewItem) e.OriginalSource;
-            item.Items.Clear();
-
-            var directories = ((DirectoryInfo)item.Tag).GetDirectories();
-            var files = ((DirectoryInfo) item.Tag).GetFiles();
-            
-            foreach (var directory in directories)
-            {
-                var sItem = new TreeViewItem
+                    ((ArrayList)ListView.Resources["Items"]).Add(directoryModel);
+                }
+                foreach (var file in allFiles)
                 {
-                    Header = directory.ToString(),
-                    Tag = directory
-                };
-                sItem.Items.Add("*");
-                item.Items.Add(sItem);
+                    var fileName = file.Split('[')[0];
+                    var extension = fileName.Split('.').Last();
+                    var fileCreationTime = file.Split('[')[1];
+                    var fileModel = new FileModel { Name = fileName, Extension = extension, CreationTime = fileCreationTime, ActionName = "Delete"};
+
+                    ((ArrayList) ListView.Resources["Items"]).Add(fileModel);
+                }
             }
-            foreach (var file in files)
+        }
+
+        private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            if (item != null)
             {
-                item.Items.Add(file);
+                var directory = item.Content as DirectoryModel;
+                var file = item.Content as FileModel;
+
+                if (directory != null)
+                {
+                    CurrentPath.Text += @"\" + directory.Name;
+                }
             }
         }
     }

@@ -69,6 +69,8 @@
     <Compile Include="Menu\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DirectoryModel.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Service References\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
