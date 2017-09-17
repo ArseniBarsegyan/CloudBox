@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CloudBoxService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:52769/CloudBoxService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:52769/CloudBoxService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:52769/CloudBoxService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICloudBoxService_ValidateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateUser" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_ValidateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_GetAllDirectoriesByPath_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDirectoriesByPath" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_GetAllDirectoriesByPath_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDirectoriesByPathResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_GetAllFilesByPath_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFilesByPath" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_GetAllFilesByPath_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFilesByPathResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_CheckIfDirectoryWithUserNameExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckIfDirectoryWithUserNameExists" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_CheckIfDirectoryWithUserNameExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckIfDirectoryWithUserNameExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_UploadFilesToServer_InputMessage">
+    <wsdl:part name="parameters" element="tns:UploadFilesToServer" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_UploadFilesToServer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadFilesToServerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_CreateFolderIfNotExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFolderIfNotExists" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_CreateFolderIfNotExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFolderIfNotExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_RemoveElement_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveElement" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_RemoveElement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveElementResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_Upload_InputMessage">
+    <wsdl:part name="parameters" element="tns:Upload" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_Upload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_GetFileLink_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileLink" />
+  </wsdl:message>
+  <wsdl:message name="ICloudBoxService_GetFileLink_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileLinkResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICloudBoxService">
+    <wsdl:operation name="ValidateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/ValidateUser" message="tns:ICloudBoxService_ValidateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/ValidateUserResponse" message="tns:ICloudBoxService_ValidateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDirectoriesByPath">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPath" message="tns:ICloudBoxService_GetAllDirectoriesByPath_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPathResponse" message="tns:ICloudBoxService_GetAllDirectoriesByPath_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFilesByPath">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/GetAllFilesByPath" message="tns:ICloudBoxService_GetAllFilesByPath_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/GetAllFilesByPathResponse" message="tns:ICloudBoxService_GetAllFilesByPath_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfDirectoryWithUserNameExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExists" message="tns:ICloudBoxService_CheckIfDirectoryWithUserNameExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExistsResponse" message="tns:ICloudBoxService_CheckIfDirectoryWithUserNameExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFilesToServer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/UploadFilesToServer" message="tns:ICloudBoxService_UploadFilesToServer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/UploadFilesToServerResponse" message="tns:ICloudBoxService_UploadFilesToServer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateFolderIfNotExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExists" message="tns:ICloudBoxService_CreateFolderIfNotExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExistsResponse" message="tns:ICloudBoxService_CreateFolderIfNotExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveElement">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/RemoveElement" message="tns:ICloudBoxService_RemoveElement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/RemoveElementResponse" message="tns:ICloudBoxService_RemoveElement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Upload">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/Upload" message="tns:ICloudBoxService_Upload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/UploadResponse" message="tns:ICloudBoxService_Upload_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileLink">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudBoxService/GetFileLink" message="tns:ICloudBoxService_GetFileLink_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudBoxService/GetFileLinkResponse" message="tns:ICloudBoxService_GetFileLink_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICloudBoxService" type="tns:ICloudBoxService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidateUser">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/ValidateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDirectoriesByPath">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPath" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFilesByPath">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/GetAllFilesByPath" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfDirectoryWithUserNameExists">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFilesToServer">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/UploadFilesToServer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFolderIfNotExists">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveElement">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/RemoveElement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Upload">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/Upload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileLink">
+      <soap:operation soapAction="http://tempuri.org/ICloudBoxService/GetFileLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CloudBoxService">
+    <wsdl:port name="BasicHttpBinding_ICloudBoxService" binding="tns:BasicHttpBinding_ICloudBoxService">
+      <soap:address location="http://localhost:52769/CloudBoxService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

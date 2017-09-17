@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="28d08151-9215-4a35-b19f-44f961dfe7a2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:52769/CloudBoxService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CloudBoxService.xsd" MetadataType="Schema" ID="d4034011-ff2f-43d9-bfd3-0cac269aa718" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CloudBoxService.disco" MetadataType="Disco" ID="6bfc9bec-328f-419e-a3fe-b2633690ef5c" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?disco" />
+    <MetadataFile FileName="CloudBoxService2.xsd" MetadataType="Schema" ID="a0d5ed38-6ffe-4c91-815f-a90939a9654b" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CloudBoxService.wsdl" MetadataType="Wsdl" ID="73766e8b-b628-4bbb-88d5-a3a6cd3119c4" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?wsdl" />
+    <MetadataFile FileName="CloudBoxService1.xsd" MetadataType="Schema" ID="ab7638e0-adaf-4472-b7a8-033c57c4ef04" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

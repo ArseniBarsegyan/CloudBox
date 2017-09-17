@@ -6,6 +6,7 @@ using System.Web.Security;
 using WebMatrix.WebData;
 using CloudBox.WebUI.Filters;
 using CloudBox.WebUI.Models;
+using CloudBox.WebUI.ServiceReference1;
 
 namespace CloudBox.WebUI.Controllers
 {
@@ -99,7 +100,12 @@ namespace CloudBox.WebUI.Controllers
         public ActionResult Manage()
         {
             var username = User.Identity.Name;
-            CheckIfDirectoryWithUserNameExists(username);
+            //CheckIfDirectoryWithUserNameExists(username);
+
+            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+            {
+                serviceClient.CheckIfDirectoryWithUserNameExists(username);
+            }
 
             //Send into view current path, it's directories and files
             ViewBag.CurrentPath = username;
@@ -109,79 +115,59 @@ namespace CloudBox.WebUI.Controllers
         //Returns partial view with all files and directories by sending path as param
         public ActionResult DirectoriesAndFilesSummary(string path)
         {
-            ViewBag.DirectoriesAndFilesRelativePath = path;
-
-            ViewBag.Directories = GetAllDirectoriesByPath(path);
-            ViewBag.Files = GetAllFilesByPath(path);
+            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+            {
+                var fileLink = serviceClient.GetFileLink(path);
+                ViewBag.FileLink = serviceClient.GetFileLink(path);
+                ViewBag.Directories = serviceClient.GetAllDirectoriesByPath(User.Identity.Name, path);
+                ViewBag.Files = serviceClient.GetAllFilesByPath(User.Identity.Name, path);
+            }
 
             return PartialView();
-        }
-
-        //Get all directories from path
-        private IEnumerable<string> GetAllDirectoriesByPath(string path)
-        {
-            var directoriesPaths = Directory.GetDirectories(Server.MapPath("~/Files/" + path));
-            for (var i = 0; i < directoriesPaths.Length; i++)
-            {
-                FileInfo fileInfo = new FileInfo(directoriesPaths[i]);
-                directoriesPaths[i] = fileInfo.Name + "[" + fileInfo.CreationTime;
-            }
-            return directoriesPaths;
-        }
-
-        //Get all files from path
-        private IEnumerable<string> GetAllFilesByPath(string path)
-        {
-            var filesPaths = Directory.GetFiles(Server.MapPath("~/Files/" + path));
-            for (var i = 0; i < filesPaths.Length; i++)
-            {
-                FileInfo fileInfo = new FileInfo(filesPaths[i]);
-                filesPaths[i] = fileInfo.Name + "[" + fileInfo.CreationTime;
-            }
-            return filesPaths;
-        }
-
-        //Check if Server contains user folder. If not, create it
-        private void CheckIfDirectoryWithUserNameExists(string username)
-        {
-            var usersDirectories = Directory.GetDirectories(Server.MapPath("~/Files/"));
-            var directoriesNames = usersDirectories.Select(directoryFullName => new FileInfo(directoryFullName).Name);
-            if (!directoriesNames.Contains(username))
-            {
-                Directory.CreateDirectory(Server.MapPath("~/Files/" + username));
-            }
         }
 
         //AJAX upload file
         [HttpPost]
         public JsonResult Upload()
         {
+            var files = Request.Files;
             foreach (string file in Request.Files)
             {
                 var upload = Request.Files[file];
                 if (upload != null)
                 {
                     string fileName = System.IO.Path.GetFileName(upload.FileName);
-                    upload.SaveAs(Server.MapPath("~/Files/" + Request.Params["path"] + fileName));
+                    string savePath = Request.Params["path"] + fileName;
+                    int fileSizeInBytes = upload.ContentLength;
+                    using (MemoryStream target = new MemoryStream())
+                    {
+                        upload.InputStream.CopyTo(target);
+                        byte[] data = target.ToArray();
+
+                        using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+                        {
+                            return Json(serviceClient.Upload(data, savePath));
+                        }
+                    }                    
+                    //upload.SaveAs(Server.MapPath("~/Files/" + savePath));                    
                 }
-            }
-            return Json("File uploaded");
+            }            
+            return Json("Server error");
         }
 
         //Create folder
         [HttpPost]
         public JsonResult CreateFolder()
-        {
+        {            
+            string result = string.Empty;
             if (Request.Params["path"] != null)
             {
-                string fullPath = Server.MapPath("~/Files/" + Request.Params["path"]);
-                if (Directory.Exists(fullPath))
+                using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
                 {
-                    return Json("Folder already exists");
+                    result = serviceClient.CreateFolderIfNotExists(Request.Params["path"]);
                 }
-                Directory.CreateDirectory(fullPath);
             }
-            return Json("Folder created");
+            return Json(result);
         }
 
         //Remove file or directory(directory delete is recursive)
@@ -190,16 +176,12 @@ namespace CloudBox.WebUI.Controllers
         {
             if (path != null)
             {
-                string fullPath = Server.MapPath("~/Files/" + path);
-                if (System.IO.File.Exists(fullPath))
+                using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
                 {
-                    System.IO.File.Delete(fullPath);
+                    serviceClient.RemoveElement(path);
                 }
-                else if (Directory.Exists(fullPath))
-                {
-                    Directory.Delete(fullPath, true);
-                }
-            }
+            }            
+
             return Json("Deleted succussfull", JsonRequestBehavior.AllowGet);
         }
         #region Helpers
