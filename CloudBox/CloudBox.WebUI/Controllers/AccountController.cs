@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
@@ -117,7 +115,6 @@ namespace CloudBox.WebUI.Controllers
         {
             using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
             {
-                var fileLink = serviceClient.GetFileLink(path);
                 ViewBag.FileLink = serviceClient.GetFileLink(path);
                 ViewBag.Directories = serviceClient.GetAllDirectoriesByPath(User.Identity.Name, path);
                 ViewBag.Files = serviceClient.GetAllFilesByPath(User.Identity.Name, path);
@@ -130,15 +127,13 @@ namespace CloudBox.WebUI.Controllers
         [HttpPost]
         public JsonResult Upload()
         {
-            var files = Request.Files;
             foreach (string file in Request.Files)
             {
                 var upload = Request.Files[file];
                 if (upload != null)
                 {
-                    string fileName = System.IO.Path.GetFileName(upload.FileName);
-                    string savePath = Request.Params["path"] + fileName;
-                    int fileSizeInBytes = upload.ContentLength;
+                    var fileName = Path.GetFileName(upload.FileName);
+                    var savePath = Request.Params["path"] + fileName;
                     using (MemoryStream target = new MemoryStream())
                     {
                         upload.InputStream.CopyTo(target);
@@ -159,7 +154,7 @@ namespace CloudBox.WebUI.Controllers
         [HttpPost]
         public JsonResult CreateFolder()
         {            
-            string result = string.Empty;
+            var result = string.Empty;
             if (Request.Params["path"] != null)
             {
                 using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
