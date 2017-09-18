@@ -4,25 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="600">
     <Grid>
+        <!--Header-->
+        <!--Text fields-->
         <TextBlock x:Name="CurrentPath" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="CurrentPath" VerticalAlignment="Top"/>
         <TextBlock x:Name="UserNameField" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="120" Text="Hello" TextAlignment="Right"/>
-        <ListView x:Name="ListView" HorizontalAlignment="Left" Height="253" Margin="0,50,0,0" VerticalAlignment="Top" Width="300" ItemsSource="{DynamicResource ResourceKey= Items}">
+        <!--Main buttons-->
+        <Button x:Name="UploadButton"  Content="Upload" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="CreateDirectoryButton" Content="*Folder" HorizontalAlignment="Left" Margin="90,65,0,0" VerticalAlignment="Top" Width="75" Click="CreateDirectoryButton_OnClick"/>
+
+        <!--List view with directories and files-->
+        <ListView x:Name="ListView" HorizontalAlignment="Left" Height="300" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="400" ItemsSource="{DynamicResource ResourceKey= Items}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100" Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
-                    <GridViewColumn Width="100" Header="Upload date" DisplayMemberBinding="{Binding Path=CreationTime}"/>
-                    <GridViewColumn Width="100" Header="Action" DisplayMemberBinding="{Binding Path=ActionName}"/>
+                    <GridViewColumn Width="180" Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Width="200" Header="Upload date" DisplayMemberBinding="{Binding Path=CreationTime}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
+                <!--Event when item in ListView double clicked (opens directory or file)-->
                 <Style TargetType="ListViewItem">
-                    <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler"></EventSetter>
+                    <EventSetter Event="MouseDoubleClick" Handler="ListView_OnItemDoubleClick"></EventSetter>
+                    <Setter Property="ContextMenu" Value="{DynamicResource DeleteContextMenu}"></Setter>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.Resources>
+                <!--Context menu with delete flag-->
+                <ContextMenu x:Key="DeleteContextMenu">
+                    <MenuItem Header="Delete" Click="DeleteMenuItem_OnClick"></MenuItem>
+                </ContextMenu>
                 <collections:ArrayList x:Key="Items">
                 </collections:ArrayList>
             </ListView.Resources>
