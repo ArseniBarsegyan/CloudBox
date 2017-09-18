@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using CloudBox.WPFClient.Models;
 using CloudBox.WPFClient.ServiceReference1;
+using ListViewItem = System.Windows.Controls.ListViewItem;
+using MessageBox = System.Windows.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace CloudBox.WPFClient.Menu
 {
@@ -27,7 +29,7 @@ namespace CloudBox.WPFClient.Menu
         //Check if user folder exists. If not - create it
         private void ShowAllFoldersInRootFolder()
         {
-            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+            using (var serviceClient = new CloudBoxServiceClient())
             {
                 serviceClient.CheckIfDirectoryWithUserNameExists(_userName);
                 var allDirectories = serviceClient.GetAllDirectoriesByPath(_userName, CurrentPath.Text);
@@ -36,7 +38,7 @@ namespace CloudBox.WPFClient.Menu
                 {
                     var directoryName = directory.Split('[')[0];
                     var directoryCreationTime = directory.Split('[')[1];
-                    var directoryModel = new DirectoryModel {Name = directoryName, CreationTime = directoryCreationTime, ActionName = "Delete"};
+                    var directoryModel = new DirectoryModel {Name = directoryName, CreationTime = directoryCreationTime};
 
                     ((ArrayList)ListView.Resources["Items"]).Add(directoryModel);
                 }
@@ -45,16 +47,22 @@ namespace CloudBox.WPFClient.Menu
                     var fileName = file.Split('[')[0];
                     var extension = fileName.Split('.').Last();
                     var fileCreationTime = file.Split('[')[1];
-                    var fileModel = new FileModel { Name = fileName, Extension = extension, CreationTime = fileCreationTime, ActionName = "Delete"};
+                    var fileModel = new FileModel { Name = fileName, Extension = extension, CreationTime = fileCreationTime};
 
                     ((ArrayList) ListView.Resources["Items"]).Add(fileModel);
                 }
             }
         }
 
-        private void EventSetter_OnHandler(object sender, MouseButtonEventArgs e)
+        //Click on CreateFolderButton creating new directory
+        private void CreateDirectoryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ListViewItem item = sender as ListViewItem;
+        }
+        
+        //Double click on listViewItem open this item
+        private void ListView_OnItemDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
             if (item != null)
             {
                 var directory = item.Content as DirectoryModel;
@@ -64,6 +72,41 @@ namespace CloudBox.WPFClient.Menu
                 {
                     CurrentPath.Text += @"\" + directory.Name;
                 }
+            }
+        }
+
+        //Clicking on delete context menu - remove element from list and refresh view
+        private void DeleteMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            //asking. If user confirm proceed
+            var messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult != MessageBoxResult.Yes) return;
+
+            var index = ListView.SelectedIndex;
+            var selectedItem = ListView.Items.GetItemAt(index);
+
+            if (selectedItem != null)
+            {
+                var directory = selectedItem as DirectoryModel;
+                var file = selectedItem as FileModel;
+
+                if (directory != null)
+                {
+                    using (var serviceClient = new CloudBoxServiceClient())
+                    {
+                        serviceClient.RemoveElement(CurrentPath.Text + @"\" + directory.Name);
+                    }
+                    ((ArrayList)ListView.Resources["Items"]).Remove(directory);
+                }
+                else if (file != null)
+                {
+                    using (var serviceClient = new CloudBoxServiceClient())
+                    {
+                        serviceClient.RemoveElement(CurrentPath.Text + @"\" + file.Name);
+                    }
+                    ((ArrayList)ListView.Resources["Items"]).Remove(file);
+                }
+                ListView.Items.Refresh();
             }
         }
     }
