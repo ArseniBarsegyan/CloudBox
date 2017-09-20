@@ -23,7 +23,7 @@
         string fileCreationTime = fileInfo[1];
         
         <tr>
-            <td id="@fileName"><a href="file:///@ViewBag.FileLink/@fileName">@fileName</a></td>
+            <td id="@fileName">@Html.ActionLink(fileName, "DownloadFile", "Account", new {path = ViewBag.FileLink + "/" + fileName}, null)</td>
             <td>@fileCreationTime</td>
             <td onclick="removeButtonClicked('@fileName')"><a>Delete</a></td>
         </tr>

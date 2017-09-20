@@ -123,6 +123,14 @@ namespace CloudBox.WebUI.Controllers
             return PartialView();
         }
 
+        //Download file
+        public FileResult DownloadFile(string path)
+        {
+            var fileBytes = System.IO.File.ReadAllBytes(path);
+            var fileName = path.Substring(path.LastIndexOf('/') + 1);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+
         //AJAX upload file
         [HttpPost]
         public JsonResult Upload()
