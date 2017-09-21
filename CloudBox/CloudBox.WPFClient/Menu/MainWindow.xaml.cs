@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using CloudBox.WPFClient.Models;
@@ -20,15 +22,94 @@ namespace CloudBox.WPFClient.Menu
     public partial class MainWindow : UserControl
     {
         private static string _userName;
+        private FileSystemWatcher _systemWatcher;
 
+        //When user authorize successfull running FileSystemWatcher
+        //after that will compare all files in app's folder and at server
         public MainWindow(string userName)
         {
             InitializeComponent();
-
             _userName = userName;
             CurrentPath.Text = _userName;
             UserNameField.Text = "Hello, " + userName + "!";
+            CreateUserDirectoryIfNotExists();
             ShowAllContentByCurrentPath();
+            
+            //Initialize watching after user's directory after log in
+            _systemWatcher =
+                new FileSystemWatcher(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + _userName)
+                {
+                    EnableRaisingEvents = true,
+                    IncludeSubdirectories = true
+                };
+            _systemWatcher.Created += SystemWatcherOnCreated;
+            _systemWatcher.Deleted += SystemWatcherOnDeleted;
+        }
+
+        //----------------------------
+        //SystemWatcher event handlers
+        //----------------------------
+
+        private void SystemWatcherOnCreated(object sender, FileSystemEventArgs fileSystemEventArgs)
+        {
+            //running new task
+            var task = new Task(() =>
+            {
+                //Finding relative to user's directory path to object that cause event
+                var regex = new Regex(_userName + ".+");
+                var relativePath = regex.Matches(fileSystemEventArgs.FullPath)[0].ToString();
+                //Split relative path by '\\' and we get array consists of directories names, where last element
+                //can be a file
+                var splittedPath = relativePath.Split('\\');
+
+                //Path relative to Accounts directory
+                var currentRelativePath = new StringBuilder(splittedPath[0]);
+                //Full path
+                var currentFullPath = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + _userName);
+
+                //Walk through path. If current directory doesn't exists on server, create it.
+                //If element in path - file, upload it
+                for (var i = 1; i < splittedPath.Length; i++)
+                {
+                    currentRelativePath.Append(@"\" + splittedPath[i]);
+                    currentFullPath.Append(@"\" + splittedPath[i]);
+
+                    using (var serviceClient = new CloudBoxServiceClient())
+                    {
+                        //If current element is a directory, create it in server
+                        if (Directory.Exists(currentFullPath.ToString()))
+                        {
+                            serviceClient.CreateFolderIfNotExists(currentRelativePath.ToString());
+                        }
+                        //Else it's a file
+                        else
+                        {
+                            //Convert file into byte[] and copy to server
+                            var fileContent = File.ReadAllBytes(fileSystemEventArgs.FullPath);
+                            serviceClient.Upload(fileContent, currentRelativePath.ToString());
+                        }
+                    }
+                }
+            });
+            task.Start();
+            task.Wait();
+        }
+
+        private void SystemWatcherOnDeleted(object sender, FileSystemEventArgs fileSystemEventArgs)
+        {
+        }
+
+        //----------------------------
+        //Main window methods and event handlers
+        //----------------------------
+
+        private void CreateUserDirectoryIfNotExists()
+        {
+            var fullPath = System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + _userName;
+            if (!Directory.Exists(fullPath))
+            {
+                Directory.CreateDirectory(fullPath);
+            }
         }
 
         //Check if user folder exists. If not - create it. Shows all folders and files
