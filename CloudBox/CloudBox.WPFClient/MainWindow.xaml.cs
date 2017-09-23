@@ -26,20 +26,20 @@ namespace CloudBox.WPFClient
     {
         private static string _userName;
         private FileSystemWatcher _systemWatcher;
-        private NotifyIcon notifyIcon;
+        private NotifyIcon _notifyIcon;
 
         public MainWindow(string username)
         {
             InitializeComponent();
             _userName = username;
 
-            notifyIcon = new NotifyIcon
+            _notifyIcon = new NotifyIcon
             {
                 Icon = new System.Drawing.Icon("CloudBox.ico"),
                 Visible = true
             };
-            notifyIcon.DoubleClick += NotifyIcon_OnDoubleClick;
-            notifyIcon.MouseDown += NotifyIcon_OnMouseDown;
+            _notifyIcon.DoubleClick += NotifyIcon_OnDoubleClick;
+            _notifyIcon.MouseDown += NotifyIcon_OnMouseDown;
 
             CurrentPath.Text = _userName;
             UserNameField.Text = "Hello, " + username + "!";
@@ -248,7 +248,7 @@ namespace CloudBox.WPFClient
                     var result = serviceClient.Upload(fileContent, savePath);
                     if (result.Equals("file uploaded"))
                     {
-                        MessageBox.Show("Upload result", "Uploaded successfull", MessageBoxButton.OK);
+                        MessageBox.Show("Upload successfull", "Upload result", MessageBoxButton.OK);
                     }
                 }
             }
@@ -260,7 +260,7 @@ namespace CloudBox.WPFClient
         //------------------------------------------------------------------------
         private void SystemWatcher_OnCreated(object sender, FileSystemEventArgs fileSystemEventArgs)
         {
-            notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
             //running new task
             var task = new Task(() =>
             {
@@ -302,12 +302,12 @@ namespace CloudBox.WPFClient
             });
             task.Start();
             task.Wait();
-            notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
         }
 
         private void SystemWatcher_OnDeleted(object sender, FileSystemEventArgs fileSystemEventArgs)
         {
-            notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
             var task = new Task(() =>
             {
                 //Finding relative to user's directory path to object that cause event
@@ -322,7 +322,7 @@ namespace CloudBox.WPFClient
             });
             task.Start();
             task.Wait();
-            notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
         }
     }
 }
