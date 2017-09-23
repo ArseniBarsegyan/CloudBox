@@ -26,13 +26,14 @@ namespace CloudBox.WPFClient
     {
         private static string _userName;
         private FileSystemWatcher _systemWatcher;
+        private NotifyIcon notifyIcon;
 
         public MainWindow(string username)
         {
             InitializeComponent();
             _userName = username;
 
-            var notifyIcon = new NotifyIcon
+            notifyIcon = new NotifyIcon
             {
                 Icon = new System.Drawing.Icon("CloudBox.ico"),
                 Visible = true
@@ -106,11 +107,7 @@ namespace CloudBox.WPFClient
 
         private void Menu_Close(object sender, RoutedEventArgs e)
         {
-            var messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                Close();
-            }
+            Close();
         }
 
         private void CreateUserDirectoryIfNotExists()
@@ -263,6 +260,7 @@ namespace CloudBox.WPFClient
         //------------------------------------------------------------------------
         private void SystemWatcher_OnCreated(object sender, FileSystemEventArgs fileSystemEventArgs)
         {
+            notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
             //running new task
             var task = new Task(() =>
             {
@@ -304,10 +302,12 @@ namespace CloudBox.WPFClient
             });
             task.Start();
             task.Wait();
+            notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
         }
 
         private void SystemWatcher_OnDeleted(object sender, FileSystemEventArgs fileSystemEventArgs)
         {
+            notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
             var task = new Task(() =>
             {
                 //Finding relative to user's directory path to object that cause event
@@ -322,6 +322,7 @@ namespace CloudBox.WPFClient
             });
             task.Start();
             task.Wait();
+            notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
         }
     }
 }
