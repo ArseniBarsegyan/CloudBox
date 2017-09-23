@@ -1,8 +1,0 @@
-﻿<Window x:Class="CloudBox.WPFClient.PageSwitcher"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CloudBox" Height="500" Width="600" ShowInTaskbar="False">
-    <Grid>
-        
-    </Grid>
-</Window>
