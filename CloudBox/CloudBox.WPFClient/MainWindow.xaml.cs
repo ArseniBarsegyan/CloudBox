@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using CloudBox.WPFClient.Models;
 using CloudBox.WPFClient.ServiceReference1;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using ListViewItem = System.Windows.Controls.ListViewItem;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
@@ -31,6 +32,7 @@ namespace CloudBox.WPFClient
         public MainWindow(string username)
         {
             InitializeComponent();
+            CenterWindowOnScreen();
             _userName = username;
 
             _notifyIcon = new NotifyIcon
@@ -63,6 +65,26 @@ namespace CloudBox.WPFClient
         //---------------------------Window events--------------------------------
         //------------------------------------------------------------------------
 
+        //Center this window on screen
+        private void CenterWindowOnScreen()
+        {
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+            var windowWidth = Width;
+            var windowHeight = Height;
+            Left = (screenWidth / 2) - (windowWidth / 2);
+            Top = (screenHeight / 2) - (windowHeight / 2);
+        }
+
+        //When 'Escape' key pressed close application
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+        }
+
         //Double click at icon in tray, and context menu item 'open' selected will show this window
         private void NotifyIcon_OnDoubleClick(object sender, EventArgs eventArgs)
         {
@@ -92,7 +114,7 @@ namespace CloudBox.WPFClient
         private void MainWindow_OnClosing(object sender, CancelEventArgs cancelEventArgs)
         {
             var messageBoxResult = MessageBox.Show("Close application?", "Quit confirmation", MessageBoxButton.YesNo, 
-                MessageBoxImage.Warning);
+                MessageBoxImage.Question);
             if (messageBoxResult == MessageBoxResult.No)
             {
                 cancelEventArgs.Cancel = true;
@@ -121,7 +143,7 @@ namespace CloudBox.WPFClient
 
         //Check if user folder exists. If not - create it. Shows all folders and files
         //by path
-        private void ShowAllContentByCurrentPath()
+        public void ShowAllContentByCurrentPath()
         {
             //Clear list before displaying items
             ((ArrayList)ListView.Resources["Items"]).Clear();
@@ -181,6 +203,20 @@ namespace CloudBox.WPFClient
         //Clicking on delete context menu - remove element from list and refresh view
         private void DeleteMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
+            DeleteListViewItem();
+        }
+
+        //When list item selected pressing 'del' will delete item
+        private void ListView_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                DeleteListViewItem();
+            }
+        }
+
+        private void DeleteListViewItem()
+        {
             //asking. If user confirm proceed
             var messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult != MessageBoxResult.Yes) return;
@@ -231,6 +267,8 @@ namespace CloudBox.WPFClient
         //Click on CreateFolderButton creating new directory
         private void CreateDirectoryButton_OnClick(object sender, RoutedEventArgs e)
         {
+            var createDirectoryDialog = new CreateDirectoryWindow(CurrentPath.Text, this);
+            createDirectoryDialog.Show();
         }
 
         //Open dialog box where user can select file and upload it to server
