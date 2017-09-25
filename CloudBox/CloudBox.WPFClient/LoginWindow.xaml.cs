@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using CloudBox.WPFClient.ServiceReference1;
 
 namespace CloudBox.WPFClient
@@ -11,6 +12,7 @@ namespace CloudBox.WPFClient
         public LoginWindow()
         {
             InitializeComponent();
+            CenterWindowOnScreen();
         }
 
         //Back to main page
@@ -47,6 +49,30 @@ namespace CloudBox.WPFClient
                     }
                 }
             }
+        }
+
+        //When pressed Enter try to log in, escape - exit application
+        private void LoginWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoginConfirmed();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+        }
+
+        //Center this window on screen
+        private void CenterWindowOnScreen()
+        {
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+            var windowWidth = Width;
+            var windowHeight = Height;
+            Left = (screenWidth / 2) - (windowWidth / 2);
+            Top = (screenHeight / 2) - (windowHeight / 2);
         }
     }
 }

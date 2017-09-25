@@ -1,7 +1,7 @@
 ﻿<Window x:Class="CloudBox.WPFClient.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Log in" Height="300" Width="300">
+        Title="Log in" Height="300" Width="300" KeyDown="LoginWindow_OnKeyDown">
     <Grid>
         <Label Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"></Label>
         
