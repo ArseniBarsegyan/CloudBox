@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="CloudBox.WCFService.CloudService" CodeBehind="CloudService.svc.cs" %>
