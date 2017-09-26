@@ -249,10 +249,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <None Include="Service References\ServiceReference1\CloudBoxService.disco" />
-    <None Include="Service References\ServiceReference1\CloudBoxService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\ServiceReference1\CloudService.disco" />
     <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
     <None Include="Service References\ServiceReference1\configuration.svcinfo" />
     <None Include="Service References\ServiceReference1\Reference.svcmap">
@@ -291,11 +288,14 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\DirectoriesAndFilesSummary.cshtml" />
-    <None Include="Service References\ServiceReference1\CloudBoxService.wsdl" />
-    <None Include="Service References\ServiceReference1\CloudBoxService.xsd">
+    <None Include="Service References\ServiceReference1\CloudService.wsdl" />
+    <None Include="Service References\ServiceReference1\CloudService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\CloudBoxService1.xsd">
+    <None Include="Service References\ServiceReference1\CloudService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\CloudService2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

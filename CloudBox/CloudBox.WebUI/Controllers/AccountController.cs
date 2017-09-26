@@ -100,7 +100,7 @@ namespace CloudBox.WebUI.Controllers
             var username = User.Identity.Name;
             //CheckIfDirectoryWithUserNameExists(username);
 
-            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+            using (CloudServiceClient serviceClient = new CloudServiceClient())
             {
                 serviceClient.CheckIfDirectoryWithUserNameExists(username);
             }
@@ -113,7 +113,7 @@ namespace CloudBox.WebUI.Controllers
         //Returns partial view with all files and directories by sending path as param
         public ActionResult DirectoriesAndFilesSummary(string path)
         {
-            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+            using (CloudServiceClient serviceClient = new CloudServiceClient())
             {
                 ViewBag.FileLink = serviceClient.GetFileLink(path);
                 ViewBag.Directories = serviceClient.GetAllDirectoriesByPath(User.Identity.Name, path);
@@ -147,7 +147,7 @@ namespace CloudBox.WebUI.Controllers
                         upload.InputStream.CopyTo(target);
                         byte[] data = target.ToArray();
 
-                        using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+                        using (CloudServiceClient serviceClient = new CloudServiceClient())
                         {
                             return Json(serviceClient.Upload(data, savePath));
                         }
@@ -165,9 +165,9 @@ namespace CloudBox.WebUI.Controllers
             var result = string.Empty;
             if (Request.Params["path"] != null)
             {
-                using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+                using (CloudServiceClient serviceClient = new CloudServiceClient())
                 {
-                    result = serviceClient.CreateFolderIfNotExists(Request.Params["path"]);
+                    result = serviceClient.CreateDirectoryIfNotExists(Request.Params["path"]);
                 }
             }
             return Json(result);
@@ -179,7 +179,7 @@ namespace CloudBox.WebUI.Controllers
         {
             if (path != null)
             {
-                using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+                using (CloudServiceClient serviceClient = new CloudServiceClient())
                 {
                     serviceClient.RemoveElement(path);
                 }

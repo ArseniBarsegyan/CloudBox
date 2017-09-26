@@ -147,7 +147,7 @@ namespace CloudBox.WPFClient
         {
             //Clear list before displaying items
             ((ArrayList)ListView.Resources["Items"]).Clear();
-            using (var serviceClient = new CloudBoxServiceClient())
+            using (var serviceClient = new CloudServiceClient())
             {
                 serviceClient.CheckIfDirectoryWithUserNameExists(_userName);
                 var allDirectories = serviceClient.GetAllDirectoriesByPath(_userName, CurrentPath.Text);
@@ -190,7 +190,7 @@ namespace CloudBox.WPFClient
                 }
                 else if (file != null)
                 {
-                    using (var serviceClient = new CloudBoxServiceClient())
+                    using (var serviceClient = new CloudServiceClient())
                     {
                         var fileLink = serviceClient.GetFileLink(CurrentPath.Text + @"\" + file.Name);
                         Process.Start(fileLink);
@@ -231,7 +231,7 @@ namespace CloudBox.WPFClient
 
                 if (directory != null)
                 {
-                    using (var serviceClient = new CloudBoxServiceClient())
+                    using (var serviceClient = new CloudServiceClient())
                     {
                         serviceClient.RemoveElement(CurrentPath.Text + @"\" + directory.Name);
                     }
@@ -239,7 +239,7 @@ namespace CloudBox.WPFClient
                 }
                 else if (file != null)
                 {
-                    using (var serviceClient = new CloudBoxServiceClient())
+                    using (var serviceClient = new CloudServiceClient())
                     {
                         serviceClient.RemoveElement(CurrentPath.Text + @"\" + file.Name);
                     }
@@ -281,7 +281,7 @@ namespace CloudBox.WPFClient
                 var fileContent = File.ReadAllBytes(fullFileName);
                 var savePath = CurrentPath.Text + @"\" + new FileInfo(fullFileName).Name;
 
-                using (var serviceClient = new CloudBoxServiceClient())
+                using (var serviceClient = new CloudServiceClient())
                 {
                     var result = serviceClient.Upload(fileContent, savePath);
                     if (result.Equals("file uploaded"))
@@ -312,7 +312,7 @@ namespace CloudBox.WPFClient
                 //Path relative to Accounts directory
                 var currentRelativePath = new StringBuilder(splittedPath[0]);
                 //Full path
-                var currentFullPath = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + _userName);
+                var currentFullPath = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + _userName);
 
                 //Walk through path. If current directory doesn't exists on server, create it.
                 //If element in path - file, upload it
@@ -321,12 +321,12 @@ namespace CloudBox.WPFClient
                     currentRelativePath.Append(@"\" + splittedPath[i]);
                     currentFullPath.Append(@"\" + splittedPath[i]);
 
-                    using (var serviceClient = new CloudBoxServiceClient())
+                    using (var serviceClient = new CloudServiceClient())
                     {
                         //If current element is a directory, create it in server
                         if (Directory.Exists(currentFullPath.ToString()))
                         {
-                            serviceClient.CreateFolderIfNotExists(currentRelativePath.ToString());
+                            serviceClient.CreateDirectoryIfNotExists(currentRelativePath.ToString());
                         }
                         //Else it's a file
                         else
@@ -353,7 +353,7 @@ namespace CloudBox.WPFClient
                 var relativePath = regex.Matches(fileSystemEventArgs.FullPath)[0].ToString();
 
                 //Delelte this object at server
-                using (var serviceClient = new CloudBoxServiceClient())
+                using (var serviceClient = new CloudServiceClient())
                 {
                     serviceClient.RemoveElement(relativePath);
                 }

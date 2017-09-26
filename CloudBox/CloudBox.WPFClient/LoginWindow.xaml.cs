@@ -30,7 +30,7 @@ namespace CloudBox.WPFClient
         //If validation successfull opens main page, else show message with validation error
         private void LoginConfirmed()
         {
-            using (CloudBoxServiceClient serviceClient = new CloudBoxServiceClient())
+            using (CloudServiceClient serviceClient = new CloudServiceClient())
             {
                 var userName = UserNameField.Text;
                 var userPassword = UserPasswordField.Password;

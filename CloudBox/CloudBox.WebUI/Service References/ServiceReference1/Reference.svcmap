@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="28d08151-9215-4a35-b19f-44f961dfe7a2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e0597f1d-fd66-4265-882b-1c7ad8d1def2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:52769/CloudBoxService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:49545/CloudService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CloudBoxService.xsd" MetadataType="Schema" ID="d4034011-ff2f-43d9-bfd3-0cac269aa718" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?xsd=xsd0" />
-    <MetadataFile FileName="CloudBoxService.disco" MetadataType="Disco" ID="6bfc9bec-328f-419e-a3fe-b2633690ef5c" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?disco" />
-    <MetadataFile FileName="CloudBoxService2.xsd" MetadataType="Schema" ID="a0d5ed38-6ffe-4c91-815f-a90939a9654b" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?xsd=xsd2" />
-    <MetadataFile FileName="CloudBoxService.wsdl" MetadataType="Wsdl" ID="73766e8b-b628-4bbb-88d5-a3a6cd3119c4" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?wsdl" />
-    <MetadataFile FileName="CloudBoxService1.xsd" MetadataType="Schema" ID="ab7638e0-adaf-4472-b7a8-033c57c4ef04" SourceId="1" SourceUrl="http://localhost:52769/CloudBoxService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CloudService.xsd" MetadataType="Schema" ID="d47ab68e-b0d1-4c5f-8333-d0b91f803466" SourceId="1" SourceUrl="http://localhost:49545/CloudService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CloudService.wsdl" MetadataType="Wsdl" ID="b16e3af6-f577-4849-b668-cc247bb6ba8b" SourceId="1" SourceUrl="http://localhost:49545/CloudService.svc?wsdl" />
+    <MetadataFile FileName="CloudService1.xsd" MetadataType="Schema" ID="9b1e9b1c-91e9-498b-990f-9bd17a383e5b" SourceId="1" SourceUrl="http://localhost:49545/CloudService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CloudService.disco" MetadataType="Disco" ID="84c0b1a0-4953-4f15-9f19-e68a6f703f4d" SourceId="1" SourceUrl="http://localhost:49545/CloudService.svc?disco" />
+    <MetadataFile FileName="CloudService2.xsd" MetadataType="Schema" ID="f07967fe-ddf0-47a6-98ef-ba8ae98ca455" SourceId="1" SourceUrl="http://localhost:49545/CloudService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

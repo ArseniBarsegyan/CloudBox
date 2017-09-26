@@ -12,88 +12,88 @@ namespace CloudBox.WebUI.ServiceReference1 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ICloudBoxService")]
-    public interface ICloudBoxService {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ICloudService")]
+    public interface ICloudService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/ValidateUser", ReplyAction="http://tempuri.org/ICloudBoxService/ValidateUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/ValidateUser", ReplyAction="http://tempuri.org/ICloudService/ValidateUserResponse")]
         bool ValidateUser(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/ValidateUser", ReplyAction="http://tempuri.org/ICloudBoxService/ValidateUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/ValidateUser", ReplyAction="http://tempuri.org/ICloudService/ValidateUserResponse")]
         System.Threading.Tasks.Task<bool> ValidateUserAsync(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPathResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllDirectoriesByPathResponse")]
         string[] GetAllDirectoriesByPath(string userName, string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudBoxService/GetAllDirectoriesByPathResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllDirectoriesByPathResponse")]
         System.Threading.Tasks.Task<string[]> GetAllDirectoriesByPathAsync(string userName, string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudBoxService/GetAllFilesByPathResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllFilesByPathResponse")]
         string[] GetAllFilesByPath(string userName, string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudBoxService/GetAllFilesByPathResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllFilesByPathResponse")]
         System.Threading.Tasks.Task<string[]> GetAllFilesByPathAsync(string userName, string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExistsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExistsResponse")]
         void CheckIfDirectoryWithUserNameExists(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudBoxService/CheckIfDirectoryWithUserNameExistsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExistsResponse")]
         System.Threading.Tasks.Task CheckIfDirectoryWithUserNameExistsAsync(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudBoxService/UploadFilesToServerResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudService/UploadFilesToServerResponse")]
         bool UploadFilesToServer(string userName, string password, byte[] fileContent);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudBoxService/UploadFilesToServerResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudService/UploadFilesToServerResponse")]
         System.Threading.Tasks.Task<bool> UploadFilesToServerAsync(string userName, string password, byte[] fileContent);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExists", ReplyAction="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExistsResponse")]
-        string CreateFolderIfNotExists(string path);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CreateDirectoryIfNotExists", ReplyAction="http://tempuri.org/ICloudService/CreateDirectoryIfNotExistsResponse")]
+        string CreateDirectoryIfNotExists(string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExists", ReplyAction="http://tempuri.org/ICloudBoxService/CreateFolderIfNotExistsResponse")]
-        System.Threading.Tasks.Task<string> CreateFolderIfNotExistsAsync(string path);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CreateDirectoryIfNotExists", ReplyAction="http://tempuri.org/ICloudService/CreateDirectoryIfNotExistsResponse")]
+        System.Threading.Tasks.Task<string> CreateDirectoryIfNotExistsAsync(string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/RemoveElement", ReplyAction="http://tempuri.org/ICloudBoxService/RemoveElementResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/RemoveElement", ReplyAction="http://tempuri.org/ICloudService/RemoveElementResponse")]
         void RemoveElement(string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/RemoveElement", ReplyAction="http://tempuri.org/ICloudBoxService/RemoveElementResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/RemoveElement", ReplyAction="http://tempuri.org/ICloudService/RemoveElementResponse")]
         System.Threading.Tasks.Task RemoveElementAsync(string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/Upload", ReplyAction="http://tempuri.org/ICloudBoxService/UploadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/Upload", ReplyAction="http://tempuri.org/ICloudService/UploadResponse")]
         string Upload(byte[] file, string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/Upload", ReplyAction="http://tempuri.org/ICloudBoxService/UploadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/Upload", ReplyAction="http://tempuri.org/ICloudService/UploadResponse")]
         System.Threading.Tasks.Task<string> UploadAsync(byte[] file, string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetFileLink", ReplyAction="http://tempuri.org/ICloudBoxService/GetFileLinkResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetFileLink", ReplyAction="http://tempuri.org/ICloudService/GetFileLinkResponse")]
         string GetFileLink(string path);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudBoxService/GetFileLink", ReplyAction="http://tempuri.org/ICloudBoxService/GetFileLinkResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetFileLink", ReplyAction="http://tempuri.org/ICloudService/GetFileLinkResponse")]
         System.Threading.Tasks.Task<string> GetFileLinkAsync(string path);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ICloudBoxServiceChannel : CloudBox.WebUI.ServiceReference1.ICloudBoxService, System.ServiceModel.IClientChannel {
+    public interface ICloudServiceChannel : CloudBox.WebUI.ServiceReference1.ICloudService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class CloudBoxServiceClient : System.ServiceModel.ClientBase<CloudBox.WebUI.ServiceReference1.ICloudBoxService>, CloudBox.WebUI.ServiceReference1.ICloudBoxService {
+    public partial class CloudServiceClient : System.ServiceModel.ClientBase<CloudBox.WebUI.ServiceReference1.ICloudService>, CloudBox.WebUI.ServiceReference1.ICloudService {
         
-        public CloudBoxServiceClient() {
+        public CloudServiceClient() {
         }
         
-        public CloudBoxServiceClient(string endpointConfigurationName) : 
+        public CloudServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public CloudBoxServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        public CloudServiceClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public CloudBoxServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public CloudServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public CloudBoxServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public CloudServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
@@ -137,12 +137,12 @@ namespace CloudBox.WebUI.ServiceReference1 {
             return base.Channel.UploadFilesToServerAsync(userName, password, fileContent);
         }
         
-        public string CreateFolderIfNotExists(string path) {
-            return base.Channel.CreateFolderIfNotExists(path);
+        public string CreateDirectoryIfNotExists(string path) {
+            return base.Channel.CreateDirectoryIfNotExists(path);
         }
         
-        public System.Threading.Tasks.Task<string> CreateFolderIfNotExistsAsync(string path) {
-            return base.Channel.CreateFolderIfNotExistsAsync(path);
+        public System.Threading.Tasks.Task<string> CreateDirectoryIfNotExistsAsync(string path) {
+            return base.Channel.CreateDirectoryIfNotExistsAsync(path);
         }
         
         public void RemoveElement(string path) {

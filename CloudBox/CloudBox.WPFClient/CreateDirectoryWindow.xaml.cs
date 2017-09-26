@@ -50,9 +50,9 @@ namespace CloudBox.WPFClient
         //Create directory if not exists on server and refresh main window
         private void CreateDirectoryIfNotExists()
         {
-            using (var serviceClient = new CloudBoxServiceClient())
+            using (var serviceClient = new CloudServiceClient())
             {
-                var result = serviceClient.CreateFolderIfNotExists(_currentPath + @"\" + DirectoryName.Text);
+                var result = serviceClient.CreateDirectoryIfNotExists(_currentPath + @"\" + DirectoryName.Text);
                 MessageBox.Show(result);
                 _mainWindow.ShowAllContentByCurrentPath();
             }

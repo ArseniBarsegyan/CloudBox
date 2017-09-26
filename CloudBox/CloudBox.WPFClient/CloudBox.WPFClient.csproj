@@ -114,14 +114,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\ServiceReference1\CloudBoxService.wsdl" />
-    <None Include="Service References\ServiceReference1\CloudBoxService.xsd">
+    <None Include="Service References\ServiceReference1\CloudService.wsdl" />
+    <None Include="Service References\ServiceReference1\CloudService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\CloudBoxService1.xsd">
+    <None Include="Service References\ServiceReference1\CloudService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\CloudBoxService2.xsd">
+    <None Include="Service References\ServiceReference1\CloudService2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -132,7 +132,7 @@
     <WCFMetadataStorage Include="Service References\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ServiceReference1\CloudBoxService.disco" />
+    <None Include="Service References\ServiceReference1\CloudService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
