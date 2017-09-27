@@ -8,9 +8,18 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/scripts/jquery-1.9.1.min.js")
     @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+    <style>
+        /*Dark footer theme*/
+        .footer-bs {
+            background-color: #222222;
+            padding: 60px 40px;
+            color: rgba(255,255,255,1.00);
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-nav navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,13 +38,13 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container-full body-content">
         <div id="modDialog" class="modal fade ">
             <div id="dialogContent" class="modal-dialog"></div>
         </div>
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="text-center footer-bs">
             <p>&copy; CloudBox, @DateTime.Now.Year</p>
         </footer>
     </div>

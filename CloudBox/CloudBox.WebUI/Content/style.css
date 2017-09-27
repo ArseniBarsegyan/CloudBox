@@ -3,6 +3,12 @@
     padding-bottom: 20px;
 }
 
+/*Full width container*/
+.container-full {
+  margin: 5px auto;
+  width: 100%;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
