@@ -3,6 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
         Title="MainWindow" Height="500" Width="600" KeyDown="MainWindow_OnKeyDown">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/Clouds.jpg"></ImageBrush>
+    </Window.Background>
     <Window.Resources>
         <ContextMenu x:Key="NotifierContextMenu" Placement="MousePoint">
             <MenuItem Header="Open" Click="Menu_Open" />
@@ -20,7 +23,7 @@
         <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,330" VerticalAlignment="Bottom" Width="75" Click="BackButton_OnClick"/>
 
         <!--List view with directories and files-->
-        <ListView x:Name="ListView" HorizontalAlignment="Left" Height="300" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="400" ItemsSource="{DynamicResource ResourceKey= Items}">
+        <ListView Background="Transparent" x:Name="ListView" HorizontalAlignment="Left" Height="300" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="400" ItemsSource="{DynamicResource ResourceKey= Items}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="180" Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>

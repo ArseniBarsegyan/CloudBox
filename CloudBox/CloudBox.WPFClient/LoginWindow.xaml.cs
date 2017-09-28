@@ -15,12 +15,6 @@ namespace CloudBox.WPFClient
             CenterWindowOnScreen();
         }
 
-        //Back to main page
-        private void BackButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         //Log in to service
         private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
         {

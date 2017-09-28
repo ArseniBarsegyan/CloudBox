@@ -1,7 +1,10 @@
 ﻿<Window x:Class="CloudBox.WPFClient.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Log in" Height="300" Width="300" KeyDown="LoginWindow_OnKeyDown">
+        Title="Log in" Height="400" Width="400" KeyDown="LoginWindow_OnKeyDown">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/Clouds.jpg"></ImageBrush>
+    </Window.Background>
     <Grid>
         <Label Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"></Label>
         
@@ -11,7 +14,7 @@
         <Label Content="Password" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-150,-20,0,0" />
         <PasswordBox x:Name="UserPasswordField" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Center" Width="200" Height="25"/>
 
-        <Button x:Name="SubmitButton" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,130,0,0" Width="200" Height="30" Background="SpringGreen" Click="SubmitButton_OnClick"/>
-        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0" Width="200" Height="30" Click="BackButton_OnClick"/>
+        <Button x:Name="SubmitButton" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,0" Width="200" Height="30" Background="MediumSpringGreen" Click="SubmitButton_OnClick"/>
+        <Label x:Name="CopyrightText" Content="©CloudBox, 2017" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5"></Label>
     </Grid>
 </Window>
