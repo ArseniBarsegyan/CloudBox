@@ -11,32 +11,11 @@ namespace CloudBox.WCFService
         public bool ValidateUser(string username, string password)
         {
             MySqlSimpleMembershipProvider provider = new MySqlSimpleMembershipProvider();
-
             return WebSecurity.Login(username, password);
         }
 
-        public bool UploadFilesToServer(string userName, string password, byte[] fileContent)
-        {
-            MySqlSimpleMembershipProvider provider = new MySqlSimpleMembershipProvider();
-
-            var loginResult = WebSecurity.Login(userName, password);
-            var accountsDirectory = System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts";
-            if (!Directory.Exists(accountsDirectory))
-            {
-                if (WebSecurity.Login(userName, password))
-                {
-                    var userDirectory = accountsDirectory + @"\" + userName;
-                    if (!Directory.Exists(userDirectory))
-                    {
-                        Directory.CreateDirectory(userDirectory);
-                    }
-                }
-            }
-            return true;
-        }
-
-        //Get all directories from path
-        public IEnumerable<string> GetAllDirectoriesByPath(string userName, string path)
+        //Get all directories from passed path ('UserName\...')
+        public IEnumerable<string> GetAllDirectoriesByPath(string path)
         {
             var directoriesPaths = Directory.GetDirectories(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path);
             for (var i = 0; i < directoriesPaths.Length; i++)
@@ -47,8 +26,8 @@ namespace CloudBox.WCFService
             return directoriesPaths;
         }
 
-        //Get all files from path
-        public IEnumerable<string> GetAllFilesByPath(string userName, string path)
+        //Get all files from passed path ('UserName\...')
+        public IEnumerable<string> GetAllFilesByPath(string path)
         {
             var filesPaths = Directory.GetFiles(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path);
             for (var i = 0; i < filesPaths.Length; i++)
@@ -70,7 +49,7 @@ namespace CloudBox.WCFService
             }
         }
 
-        //Remove file or directory(directory delete is recursive)
+        //Remove file or directory by passed path ('UserName\...\DirectoryName(fileName.extension)')
         public void RemoveElement(string path)
         {
             var fullPath = System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path;
@@ -84,6 +63,7 @@ namespace CloudBox.WCFService
             }
         }
 
+        //Create directory by passed path ('UserName\...\DirectoryName')
         public string CreateDirectoryIfNotExists(string path)
         {
             var fullPath = System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path;
@@ -95,12 +75,14 @@ namespace CloudBox.WCFService
             return "Folder created";
         }
 
+        //Write content by passed path ('UserName\...\fileName.extension')
         public string Upload(byte[] file, string path)
         {
             File.WriteAllBytes(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path, file);
             return "file uploaded";
         }
 
+        //return file link by passed path ('UserName\...\fileName.extension')
         public string GetFileLink(string path)
         {
             return System.AppDomain.CurrentDomain.BaseDirectory + @"Accounts\" + path;

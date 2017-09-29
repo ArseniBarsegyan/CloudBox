@@ -19,16 +19,13 @@ namespace CloudBox.WPFClient.ServiceReference1 {
         bool ValidateUser(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllDirectoriesByPathResponse")]
-        string[] GetAllDirectoriesByPath(string userName, string path);
+        string[] GetAllDirectoriesByPath(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllFilesByPathResponse")]
-        string[] GetAllFilesByPath(string userName, string path);
+        string[] GetAllFilesByPath(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExistsResponse")]
         void CheckIfDirectoryWithUserNameExists(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudService/UploadFilesToServerResponse")]
-        bool UploadFilesToServer(string userName, string password, byte[] fileContent);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CreateDirectoryIfNotExists", ReplyAction="http://tempuri.org/ICloudService/CreateDirectoryIfNotExistsResponse")]
         string CreateDirectoryIfNotExists(string path);
@@ -74,20 +71,16 @@ namespace CloudBox.WPFClient.ServiceReference1 {
             return base.Channel.ValidateUser(username, password);
         }
         
-        public string[] GetAllDirectoriesByPath(string userName, string path) {
-            return base.Channel.GetAllDirectoriesByPath(userName, path);
+        public string[] GetAllDirectoriesByPath(string path) {
+            return base.Channel.GetAllDirectoriesByPath(path);
         }
         
-        public string[] GetAllFilesByPath(string userName, string path) {
-            return base.Channel.GetAllFilesByPath(userName, path);
+        public string[] GetAllFilesByPath(string path) {
+            return base.Channel.GetAllFilesByPath(path);
         }
         
         public void CheckIfDirectoryWithUserNameExists(string username) {
             base.Channel.CheckIfDirectoryWithUserNameExists(username);
-        }
-        
-        public bool UploadFilesToServer(string userName, string password, byte[] fileContent) {
-            return base.Channel.UploadFilesToServer(userName, password, fileContent);
         }
         
         public string CreateDirectoryIfNotExists(string path) {

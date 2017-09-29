@@ -10,16 +10,13 @@ namespace CloudBox.WCFService
         bool ValidateUser(string username, string password);
 
         [OperationContract]
-        IEnumerable<string> GetAllDirectoriesByPath(string userName, string path);
+        IEnumerable<string> GetAllDirectoriesByPath(string path);
 
         [OperationContract]
-        IEnumerable<string> GetAllFilesByPath(string userName, string path);
+        IEnumerable<string> GetAllFilesByPath(string path);
 
         [OperationContract]
         void CheckIfDirectoryWithUserNameExists(string username);
-
-        [OperationContract]
-        bool UploadFilesToServer(string userName, string password, byte[] fileContent);
 
         [OperationContract]
         string CreateDirectoryIfNotExists(string path);

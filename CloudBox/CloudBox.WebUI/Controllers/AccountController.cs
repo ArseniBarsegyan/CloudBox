@@ -12,21 +12,11 @@ namespace CloudBox.WebUI.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        public AccountController()
-        {
-        }
-
-        //
-        // GET: /Account/Login
-
         [AllowAnonymous]
         public ActionResult Login()
         {
             return PartialView();
-        }
-
-        //
-        // POST: /Account/Login
+        }        
 
         [HttpPost]
         [AllowAnonymous]
@@ -43,9 +33,6 @@ namespace CloudBox.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // POST: /Account/LogOff
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -55,17 +42,11 @@ namespace CloudBox.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Register
-
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
-
-        //
-        // POST: /Account/Register
 
         [HttpPost]
         [AllowAnonymous]
@@ -74,7 +55,6 @@ namespace CloudBox.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
@@ -85,26 +65,18 @@ namespace CloudBox.WebUI.Controllers
                 {
                     ModelState.AddModelError(string.Empty, ErrorCodeToString(e.StatusCode));
                 }
-            }
-
-            // If we got this far, something failed, redisplay form
+            }            
             return View(model);
         }
-
-        //
-        // GET: /Account/Manage
 
         [HttpGet]
         public ActionResult Manage()
         {
             var username = User.Identity.Name;
-            //CheckIfDirectoryWithUserNameExists(username);
-
             using (CloudServiceClient serviceClient = new CloudServiceClient())
             {
                 serviceClient.CheckIfDirectoryWithUserNameExists(username);
             }
-
             //Send into view current path, it's directories and files
             ViewBag.CurrentPath = username;
             return View();
@@ -116,10 +88,9 @@ namespace CloudBox.WebUI.Controllers
             using (CloudServiceClient serviceClient = new CloudServiceClient())
             {
                 ViewBag.FileLink = serviceClient.GetFileLink(path);
-                ViewBag.Directories = serviceClient.GetAllDirectoriesByPath(User.Identity.Name, path);
-                ViewBag.Files = serviceClient.GetAllFilesByPath(User.Identity.Name, path);
+                ViewBag.Directories = serviceClient.GetAllDirectoriesByPath(path);
+                ViewBag.Files = serviceClient.GetAllFilesByPath(path);
             }
-
             return PartialView();
         }
 
@@ -151,8 +122,7 @@ namespace CloudBox.WebUI.Controllers
                         {
                             return Json(serviceClient.Upload(data, savePath));
                         }
-                    }                    
-                    //upload.SaveAs(Server.MapPath("~/Files/" + savePath));                    
+                    }
                 }
             }            
             return Json("Server error");

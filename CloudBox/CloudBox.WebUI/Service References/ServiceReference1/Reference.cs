@@ -22,28 +22,22 @@ namespace CloudBox.WebUI.ServiceReference1 {
         System.Threading.Tasks.Task<bool> ValidateUserAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllDirectoriesByPathResponse")]
-        string[] GetAllDirectoriesByPath(string userName, string path);
+        string[] GetAllDirectoriesByPath(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllDirectoriesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllDirectoriesByPathResponse")]
-        System.Threading.Tasks.Task<string[]> GetAllDirectoriesByPathAsync(string userName, string path);
+        System.Threading.Tasks.Task<string[]> GetAllDirectoriesByPathAsync(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllFilesByPathResponse")]
-        string[] GetAllFilesByPath(string userName, string path);
+        string[] GetAllFilesByPath(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/GetAllFilesByPath", ReplyAction="http://tempuri.org/ICloudService/GetAllFilesByPathResponse")]
-        System.Threading.Tasks.Task<string[]> GetAllFilesByPathAsync(string userName, string path);
+        System.Threading.Tasks.Task<string[]> GetAllFilesByPathAsync(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExistsResponse")]
         void CheckIfDirectoryWithUserNameExists(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists", ReplyAction="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExistsResponse")]
         System.Threading.Tasks.Task CheckIfDirectoryWithUserNameExistsAsync(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudService/UploadFilesToServerResponse")]
-        bool UploadFilesToServer(string userName, string password, byte[] fileContent);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/UploadFilesToServer", ReplyAction="http://tempuri.org/ICloudService/UploadFilesToServerResponse")]
-        System.Threading.Tasks.Task<bool> UploadFilesToServerAsync(string userName, string password, byte[] fileContent);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudService/CreateDirectoryIfNotExists", ReplyAction="http://tempuri.org/ICloudService/CreateDirectoryIfNotExistsResponse")]
         string CreateDirectoryIfNotExists(string path);
@@ -105,20 +99,20 @@ namespace CloudBox.WebUI.ServiceReference1 {
             return base.Channel.ValidateUserAsync(username, password);
         }
         
-        public string[] GetAllDirectoriesByPath(string userName, string path) {
-            return base.Channel.GetAllDirectoriesByPath(userName, path);
+        public string[] GetAllDirectoriesByPath(string path) {
+            return base.Channel.GetAllDirectoriesByPath(path);
         }
         
-        public System.Threading.Tasks.Task<string[]> GetAllDirectoriesByPathAsync(string userName, string path) {
-            return base.Channel.GetAllDirectoriesByPathAsync(userName, path);
+        public System.Threading.Tasks.Task<string[]> GetAllDirectoriesByPathAsync(string path) {
+            return base.Channel.GetAllDirectoriesByPathAsync(path);
         }
         
-        public string[] GetAllFilesByPath(string userName, string path) {
-            return base.Channel.GetAllFilesByPath(userName, path);
+        public string[] GetAllFilesByPath(string path) {
+            return base.Channel.GetAllFilesByPath(path);
         }
         
-        public System.Threading.Tasks.Task<string[]> GetAllFilesByPathAsync(string userName, string path) {
-            return base.Channel.GetAllFilesByPathAsync(userName, path);
+        public System.Threading.Tasks.Task<string[]> GetAllFilesByPathAsync(string path) {
+            return base.Channel.GetAllFilesByPathAsync(path);
         }
         
         public void CheckIfDirectoryWithUserNameExists(string username) {
@@ -127,14 +121,6 @@ namespace CloudBox.WebUI.ServiceReference1 {
         
         public System.Threading.Tasks.Task CheckIfDirectoryWithUserNameExistsAsync(string username) {
             return base.Channel.CheckIfDirectoryWithUserNameExistsAsync(username);
-        }
-        
-        public bool UploadFilesToServer(string userName, string password, byte[] fileContent) {
-            return base.Channel.UploadFilesToServer(userName, password, fileContent);
-        }
-        
-        public System.Threading.Tasks.Task<bool> UploadFilesToServerAsync(string userName, string password, byte[] fileContent) {
-            return base.Channel.UploadFilesToServerAsync(userName, password, fileContent);
         }
         
         public string CreateDirectoryIfNotExists(string path) {

@@ -150,8 +150,8 @@ namespace CloudBox.WPFClient
             using (var serviceClient = new CloudServiceClient())
             {
                 serviceClient.CheckIfDirectoryWithUserNameExists(_userName);
-                var allDirectories = serviceClient.GetAllDirectoriesByPath(_userName, CurrentPath.Text);
-                var allFiles = serviceClient.GetAllFilesByPath(_userName, CurrentPath.Text);
+                var allDirectories = serviceClient.GetAllDirectoriesByPath(CurrentPath.Text);
+                var allFiles = serviceClient.GetAllFilesByPath(CurrentPath.Text);
 
                 foreach (var directory in allDirectories)
                 {
@@ -252,10 +252,7 @@ namespace CloudBox.WPFClient
         //When back clicked return to one level
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (CurrentPath.Text.Equals(_userName))
-            {
-            }
-            else
+            if (!CurrentPath.Text.Equals(_userName))
             {
                 var currentPath = CurrentPath.Text;
                 var newPath = currentPath.Substring(0, currentPath.LastIndexOf('\\'));

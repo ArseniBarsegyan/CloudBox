@@ -31,12 +31,6 @@
   <wsdl:message name="ICloudService_CheckIfDirectoryWithUserNameExists_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckIfDirectoryWithUserNameExistsResponse" />
   </wsdl:message>
-  <wsdl:message name="ICloudService_UploadFilesToServer_InputMessage">
-    <wsdl:part name="parameters" element="tns:UploadFilesToServer" />
-  </wsdl:message>
-  <wsdl:message name="ICloudService_UploadFilesToServer_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UploadFilesToServerResponse" />
-  </wsdl:message>
   <wsdl:message name="ICloudService_CreateDirectoryIfNotExists_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateDirectoryIfNotExists" />
   </wsdl:message>
@@ -77,10 +71,6 @@
     <wsdl:operation name="CheckIfDirectoryWithUserNameExists">
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists" message="tns:ICloudService_CheckIfDirectoryWithUserNameExists_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExistsResponse" message="tns:ICloudService_CheckIfDirectoryWithUserNameExists_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UploadFilesToServer">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICloudService/UploadFilesToServer" message="tns:ICloudService_UploadFilesToServer_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICloudService/UploadFilesToServerResponse" message="tns:ICloudService_UploadFilesToServer_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CreateDirectoryIfNotExists">
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudService/CreateDirectoryIfNotExists" message="tns:ICloudService_CreateDirectoryIfNotExists_InputMessage" />
@@ -130,15 +120,6 @@
     </wsdl:operation>
     <wsdl:operation name="CheckIfDirectoryWithUserNameExists">
       <soap:operation soapAction="http://tempuri.org/ICloudService/CheckIfDirectoryWithUserNameExists" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UploadFilesToServer">
-      <soap:operation soapAction="http://tempuri.org/ICloudService/UploadFilesToServer" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

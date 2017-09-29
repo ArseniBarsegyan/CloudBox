@@ -19,7 +19,6 @@
   <xs:element name="GetAllDirectoriesByPath">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="path" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -34,7 +33,6 @@
   <xs:element name="GetAllFilesByPath">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="path" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -56,22 +54,6 @@
   <xs:element name="CheckIfDirectoryWithUserNameExistsResponse">
     <xs:complexType>
       <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UploadFilesToServer">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="fileContent" nillable="true" type="xs:base64Binary" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UploadFilesToServerResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="UploadFilesToServerResult" type="xs:boolean" />
-      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateDirectoryIfNotExists">
