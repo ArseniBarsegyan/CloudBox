@@ -3,17 +3,18 @@
     ViewBag.Title = "View Storage";
 }
 
-<div class="btn-group">
-    <input type="file" name="upload" class="btn btn-default" id="uploadFile" />
-    <button id="uploadFileButton" class="btn btn-primary">Upload</button>
-</div>
-<div class="btn-group">
-    <button id="createFolderButton" class="btn btn-default">Folder*</button>
-</div>
+<div class="container">
+    <div class="btn-group">
+        <input type="file" name="upload" class="btn btn-default" id="uploadFile" />
+        <button id="uploadFileButton" class="btn btn-primary">Upload</button>
+    </div>
+    <div class="btn-group">
+        <button id="createFolderButton" class="btn btn-default">Folder*</button>
+    </div>
 
-<p id="currentPath">@ViewBag.CurrentPath</p>
-
-<div id="resultTable"></div>
+    <p id="currentPath">@ViewBag.CurrentPath</p>
+    <div id="resultTable"></div>
+</div>
 
 @section scripts {
     <script type="text/javascript">

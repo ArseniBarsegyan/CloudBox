@@ -3,18 +3,6 @@
     padding-bottom: 20px;
 }
 
-/*Full width container*/
-.container-full {
-  margin: 5px auto;
-  width: 100%;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -29,13 +17,35 @@ textarea {
     max-width: 280px;
 }
 
-/*Style for main wide buttons*/
-.btn-wide {
-    width: 280px;
+/* Button styles */
+.btn {
+    border-radius: 0;
+    max-width: 250px;
+    height: 50px;
+    text-align: center;
+    padding: 15px 28px;
 }
 
-/*div element with center all content*/
-.center_div{
-    margin: 30px auto;
-    width: 30%
+.btn-primary {
+    background-color: #2196F3;
+    border: none;
+}
+
+.btn-primary :hover {
+    background: #0b7dda;
+}
+
+.btn-success {
+    background-color: #4CAF50;
+    border: none;
+}
+
+.btn-success :hover {
+    background-color: #46a049;
+}
+
+.form-control {
+    border-radius: 0;
+    height: 50px;
+    max-width: 250px;
 }
