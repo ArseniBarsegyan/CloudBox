@@ -3,9 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
         Title="MainWindow" Height="500" Width="600" KeyDown="MainWindow_OnKeyDown">
-    <Window.Background>
-        <ImageBrush ImageSource="Images/Clouds.jpg"></ImageBrush>
-    </Window.Background>
     <Window.Resources>
         <ContextMenu x:Key="NotifierContextMenu" Placement="MousePoint">
             <MenuItem Header="Open" Click="Menu_Open" />
