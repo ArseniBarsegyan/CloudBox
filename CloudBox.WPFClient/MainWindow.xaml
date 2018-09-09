@@ -10,20 +10,48 @@
         </ContextMenu>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
         <!--Header-->
         <!--Text fields-->
-        <TextBlock x:Name="CurrentPath" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="CurrentPath" VerticalAlignment="Top"/>
-        <TextBlock x:Name="UserNameField" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="120" Text="Hello" TextAlignment="Right"/>
-        <!--Main buttons-->
-        <Button x:Name="UploadButton"  Content="Upload" HorizontalAlignment="Left" Margin="190,0,0,330" VerticalAlignment="Bottom" Width="75" Click="UploadButton_OnClick"/>
-        <Button x:Name="CreateDirectoryButton" Content="*Folder" HorizontalAlignment="Left" Margin="100,0,0,330" VerticalAlignment="Bottom" Width="75" Click="CreateDirectoryButton_OnClick"/>
-        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,330" VerticalAlignment="Bottom" Width="75" Click="BackButton_OnClick"/>
+        <TextBlock Grid.Column="1" 
+                   Grid.Row="0" 
+                   x:Name="CurrentPath" 
+                   TextWrapping="Wrap" 
+                   Text="CurrentPath" />
+        <TextBlock Grid.Column="2" 
+                   Grid.Row="0" 
+                   x:Name="UserNameField"
+                   Text="Hello" 
+                   TextAlignment="Right"/>
 
+        <!--Main buttons-->
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Button x:Name="UploadButton" Height="25" Width="75" Content="Upload" Click="UploadButton_OnClick"/>
+            <Button x:Name="CreateDirectoryButton" Height="25" Width="75" Content="*Folder" Click="CreateDirectoryButton_OnClick"/>
+            <Button x:Name="BackButton" Height="25" Width="75" Content="Back" Click="BackButton_OnClick"/>
+        </StackPanel>
+        
         <!--List view with directories and files-->
-        <ListView Background="Transparent" x:Name="ListView" HorizontalAlignment="Left" Height="300" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="400" ItemsSource="{DynamicResource ResourceKey= Items}">
+        <ListView Grid.Row="2"
+                  Grid.Column="1" 
+                  Grid.ColumnSpan="2" 
+                  x:Name="ListView" 
+                  Height="300"
+                  ItemsSource="{DynamicResource ResourceKey= Items}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="180" Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Width="200" Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
                     <GridViewColumn Width="200" Header="Upload date" DisplayMemberBinding="{Binding Path=CreationTime}"/>
                 </GridView>
             </ListView.View>
@@ -46,3 +74,4 @@
         </ListView>
     </Grid>
 </Window>
+
