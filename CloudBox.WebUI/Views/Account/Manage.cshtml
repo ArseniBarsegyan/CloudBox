@@ -4,10 +4,9 @@
 }
 
 <div class="container">
-    <div class="btn-group">
-        <input type="file" name="upload" class="btn btn-default" id="uploadFile" />
-        <button id="uploadFileButton" class="btn btn-primary">Upload</button>
-    </div>
+    <input type="file" name="upload" class="upload" id="uploadFile" />
+    <label for="uploadFile">Pick file...</label>
+    <button id="uploadFileButton" class="btn btn-primary">Upload</button>
     <div class="btn-group">
         <button id="createFolderButton" class="btn btn-default">Folder*</button>
     </div>
@@ -135,4 +134,31 @@
         }
     };
     </script>
+}
+
+@section styles {
+    <style type="text/css">
+        /* Create new note page styles */
+        .upload {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload + label {
+            border: none; /* Remove borders */
+            color: black; /* Add a text color */
+            padding: 14px 28px; /* Add some padding */
+            cursor: pointer;
+            background-color: #e7e7e7;
+            display: inline-block;
+        }
+
+        .upload:focus + label {
+            cursor: pointer;
+            outline: 1px dotted #000;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+    </style>
 }
