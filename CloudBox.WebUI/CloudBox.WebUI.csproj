@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -232,7 +234,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Android_logo.png" />
-    <Content Include="Images\Clouds.jpg" />
+    <Content Include="Images\cloud_big_image.jpg" />
     <Content Include="Images\ios_Logo.png" />
     <Content Include="Images\Windows_logo_300x300.png" />
     <Content Include="Scripts\bootstrap.js" />
