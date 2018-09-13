@@ -8,7 +8,7 @@ namespace CloudBox.WCFServiceHost
         static void Main(string[] args)
         {
             Console.WriteLine("***** Console Based WCF Host *****");
-            using (ServiceHost serviceHost = new ServiceHost(typeof(CloudBox.WCFService.CloudService)))
+            using (ServiceHost serviceHost = new ServiceHost(typeof(WCFService.CloudService)))
             {
                 serviceHost.Open();
                 Console.WriteLine("The service is ready.");

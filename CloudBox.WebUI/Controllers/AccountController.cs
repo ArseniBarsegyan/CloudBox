@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
 using CloudBox.WebUI.Filters;
+using CloudBox.WebUI.Helpers;
 using CloudBox.WebUI.Models;
 using CloudBox.WebUI.ServiceReference1;
 
@@ -15,6 +16,11 @@ namespace CloudBox.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            // Disable partial view call from Url
+            if (!Request.IsAjaxRequest())
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return PartialView();
         }        
 
@@ -29,7 +35,7 @@ namespace CloudBox.WebUI.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError(string.Empty, ConstantHelper.UserNameOrPasswordIncorrect);
             return RedirectToAction("Index", "Home");
         }
 
@@ -125,7 +131,7 @@ namespace CloudBox.WebUI.Controllers
                     }
                 }
             }            
-            return Json("Server error");
+            return Json(ConstantHelper.ServerError);
         }
 
         //Create folder
@@ -155,7 +161,7 @@ namespace CloudBox.WebUI.Controllers
                 }
             }            
 
-            return Json("Deleted succussfull", JsonRequestBehavior.AllowGet);
+            return Json(ConstantHelper.DeletedSuccessful, JsonRequestBehavior.AllowGet);
         }
         #region Helpers
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CloudBox.WCFService.Helpers;
 using MySql.Web.Security;
 using WebMatrix.WebData;
 
@@ -69,17 +70,17 @@ namespace CloudBox.WCFService
             var fullPath = System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path;
             if (Directory.Exists(fullPath))
             {
-                return "Folder already exists";
+                return ConstantHelper.FolderAlreadyExists;
             }
             Directory.CreateDirectory(fullPath);
-            return "Folder created";
+            return ConstantHelper.FolderCreated;
         }
 
         //Write content by passed path ('UserName\...\fileName.extension')
         public string Upload(byte[] file, string path)
         {
             File.WriteAllBytes(System.AppDomain.CurrentDomain.BaseDirectory + @"\Accounts\" + path, file);
-            return "file uploaded";
+            return ConstantHelper.FileUploaded;
         }
 
         //return file link by passed path ('UserName\...\fileName.extension')

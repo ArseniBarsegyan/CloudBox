@@ -9,8 +9,8 @@ namespace CloudBox.WPFClient
     /// </summary>
     public partial class CreateDirectoryWindow : Window
     {
-        private string _currentPath;
-        private MainWindow _mainWindow;
+        private readonly string _currentPath;
+        private readonly MainWindow _mainWindow;
 
         public CreateDirectoryWindow(string currentPath, MainWindow mainWindow)
         {

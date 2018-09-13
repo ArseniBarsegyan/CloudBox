@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using CloudBox.WPFClient.Helpers;
 using CloudBox.WPFClient.ServiceReference1;
 
 namespace CloudBox.WPFClient
@@ -39,7 +40,7 @@ namespace CloudBox.WPFClient
                     }
                     else
                     {
-                        MessageBox.Show("Incorrect login or password");
+                        MessageBox.Show(ConstantHelper.IncorrectUserNameOrPassword);
                     }
                 }
             }

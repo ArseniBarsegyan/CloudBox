@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CloudBox.WPFClient.Helpers;
 using CloudBox.WPFClient.Models;
 using CloudBox.WPFClient.ServiceReference1;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -27,7 +28,7 @@ namespace CloudBox.WPFClient
     {
         private static string _userName;
         private FileSystemWatcher _systemWatcher;
-        private NotifyIcon _notifyIcon;
+        private readonly NotifyIcon _notifyIcon;
 
         public MainWindow(string username)
         {
@@ -37,7 +38,7 @@ namespace CloudBox.WPFClient
 
             _notifyIcon = new NotifyIcon
             {
-                Icon = new System.Drawing.Icon("CloudBox.ico"),
+                Icon = new System.Drawing.Icon(ConstantHelper.CloudBoxIcon),
                 Visible = true
             };
             _notifyIcon.DoubleClick += NotifyIcon_OnDoubleClick;
@@ -113,8 +114,8 @@ namespace CloudBox.WPFClient
         //Confirm before closing app
         private void MainWindow_OnClosing(object sender, CancelEventArgs cancelEventArgs)
         {
-            var messageBoxResult = MessageBox.Show("Close application?", "Quit confirmation", MessageBoxButton.YesNo, 
-                MessageBoxImage.Question);
+            var messageBoxResult = MessageBox.Show(ConstantHelper.CloseApplicationQuestion, 
+                ConstantHelper.QuitConfirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messageBoxResult == MessageBoxResult.No)
             {
                 cancelEventArgs.Cancel = true;
@@ -177,8 +178,7 @@ namespace CloudBox.WPFClient
         //Double click on listViewItem open this item
         private void ListView_OnItemDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = sender as ListViewItem;
-            if (item != null)
+            if (sender is ListViewItem item)
             {
                 var directory = item.Content as DirectoryModel;
                 var file = item.Content as FileModel;
@@ -218,7 +218,8 @@ namespace CloudBox.WPFClient
         private void DeleteListViewItem()
         {
             //asking. If user confirm proceed
-            var messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+            var messageBoxResult = MessageBox.Show(ConstantHelper.AreYouSure, 
+                ConstantHelper.DeleteConfirmation, MessageBoxButton.YesNo);
             if (messageBoxResult != MessageBoxResult.Yes) return;
 
             var index = ListView.SelectedIndex;
@@ -283,7 +284,8 @@ namespace CloudBox.WPFClient
                     var result = serviceClient.Upload(fileContent, savePath);
                     if (result.Equals("file uploaded"))
                     {
-                        MessageBox.Show("Upload successfull", "Upload result", MessageBoxButton.OK);
+                        MessageBox.Show(ConstantHelper.UploadSuccessful, 
+                            ConstantHelper.UploadResult, MessageBoxButton.OK);
                     }
                 }
             }
@@ -295,7 +297,7 @@ namespace CloudBox.WPFClient
         //------------------------------------------------------------------------
         private void SystemWatcher_OnCreated(object sender, FileSystemEventArgs fileSystemEventArgs)
         {
-            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon(ConstantHelper.CloudBoxSyncIcon);
             //running new task
             var task = new Task(() =>
             {
@@ -337,12 +339,12 @@ namespace CloudBox.WPFClient
             });
             task.Start();
             task.Wait();
-            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon(ConstantHelper.CloudBoxIcon);
         }
 
         private void SystemWatcher_OnDeleted(object sender, FileSystemEventArgs fileSystemEventArgs)
         {
-            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox_Sync.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon(ConstantHelper.CloudBoxSyncIcon);
             var task = new Task(() =>
             {
                 //Finding relative to user's directory path to object that cause event
@@ -357,7 +359,7 @@ namespace CloudBox.WPFClient
             });
             task.Start();
             task.Wait();
-            _notifyIcon.Icon = new System.Drawing.Icon("CloudBox.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon(ConstantHelper.CloudBoxIcon);
         }
     }
 }

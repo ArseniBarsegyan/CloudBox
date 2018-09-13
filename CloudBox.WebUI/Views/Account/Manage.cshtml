@@ -3,11 +3,21 @@
     ViewBag.Title = "View Storage";
 }
 
+<link href="~/Content/Account/manage.css" rel="stylesheet" />
+
 <div class="container">
-    <input type="file" name="upload" class="upload" id="uploadFile" />
-    <label for="uploadFile">Pick file...</label>
-    <button id="uploadFileButton" class="btn btn-primary">Upload</button>
-    <div class="btn-group">
+    <div class="form-group">
+        <!-- File picker -->
+        <input type="file" id="uploadFile" name="upload" class="upload" />
+        <label for="uploadFile">Pick file...</label>
+        <!-- Display uploaded file names -->
+        <label id="fileNames"></label>
+    </div>
+    
+    <div class="form-group">
+        <!-- Submit uploading -->
+        <button id="uploadFileButton" class="btn btn-success">Upload</button>
+        <!-- Create folder -->
         <button id="createFolderButton" class="btn btn-default">Folder*</button>
     </div>
 
@@ -17,61 +27,95 @@
 
 @section scripts {
     <script type="text/javascript">
-    //When document ready show current path
-    $(document).ready(function () {
-        $("#resultTable").load("@Url.Action("DirectoriesAndFilesSummary","Account", new {path = ViewBag.CurrentPath})");
-    });
+        //When document ready show current path
+        $(document).ready(function () {
+            $("#uploadFile").change(function () {
+                var files = $("#uploadFile").prop("files");
+                var names = $.map(files, function(val) { return val.name; });
+                $("#fileNames").text(names);
+            });
+            $("#resultTable").load("@Url.Action("DirectoriesAndFilesSummary","Account", new {path = ViewBag.CurrentPath})");
+        });
 
-    //When clicked '...' field return to previous directory
-    function linkToPrevDoubleClicked() {
-        if ($("#currentPath").text() == "@User.Identity.Name") {
-        } else {
-            var currentPath = $("#currentPath").text();
-            var newPath = currentPath.substring(0, currentPath.lastIndexOf('\\'));
-            $("#currentPath").text(newPath);
+        //When clicked '...' field return to previous directory
+        function linkToPrevDoubleClicked() {
+            if ($("#currentPath").text() == "@User.Identity.Name") {
 
-            //Call Account Controller method and pass a value to it
+            } else {
+                var currentPath = $("#currentPath").text();
+                var newPath = currentPath.substring(0, currentPath.lastIndexOf('\\'));
+                $("#currentPath").text(newPath);
+
+                //Call Account Controller method and pass a value to it
+                $(document).ready(function () {
+                    callUrl();
+                });
+            }
+        };
+
+        //When folder clicked append folder's name to currentPath and call Controller method
+        function onFolderDoubleClicked() {
             $(document).ready(function () {
                 callUrl();
             });
-        }
-    };
+        };
 
-    //When folder clicked append folder's name to currentPath and call Controller method
-    function onFolderDoubleClicked() {
-        $(document).ready(function () {
-            callUrl();
-        });
-    };
+        //When current path changed call Controller method and generate html
+        function callUrl() {
+            $.ajax({
+                url: "@Url.Action("DirectoriesAndFilesSummary", "Account")",
+                data: { path: $("#currentPath").text() },
+                type: "GET",
+                success: function (result) {
+                    $("#resultTable").html(result);
+                }
+            });
+        };
 
-    //When current path changed call Controller method and generate html
-    function callUrl() {
-        $.ajax({
-            url: "@Url.Action("DirectoriesAndFilesSummary", "Account")",
-            data: { path: $("#currentPath").text() },
-            type: "GET",
-            success: function (result) {
-                $("#resultTable").html(result);
+        //Upload file
+        $("#uploadFileButton").on("click", function (e) {
+            e.preventDefault();
+            var files = document.getElementById("uploadFile").files;
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    var currentPathText = $("#currentPath").text() + "\\";
+                    data.append("path", currentPathText);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Upload", "Account")",
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                        alert(result);
+                        callUrl();
+                        },
+                        error: function (xhr, status, p3) {
+                            alert(xhr.responseText);
+                        }
+                    });
+                } else {
+                    alert("Browser doesn't support HTML5 files upload!");
+                }
             }
         });
-    };
 
-    //Upload file
-    $("#uploadFileButton").on("click", function (e) {
-        e.preventDefault();
-        var files = document.getElementById("uploadFile").files;
-        if (files.length > 0) {
-            if (window.FormData !== undefined) {
+        //Create folder button clicked
+        $("#createFolderButton").on("click", function () {
+            var folderName = prompt("Enter folder name", "New folder");
+            if (folderName != null) {
+                var folderFullPath = $("#currentPath").text() + "\\" + folderName;
                 var data = new FormData();
-                for (var x = 0; x < files.length; x++) {
-                    data.append("file" + x, files[x]);
-                }
-                var currentPathText = $("#currentPath").text() + "\\";
-                data.append("path", currentPathText);
+                data.append("path", folderFullPath);
 
                 $.ajax({
                     type: "POST",
-                    url: "@Url.Action("Upload", "Account")",
+                    url: "@Url.Action("CreateFolder", "Account")",
                     contentType: false,
                     processData: false,
                     data: data,
@@ -83,82 +127,27 @@
                         alert(xhr.responseText);
                     }
                 });
-            } else {
-                alert("Browser doesn't support HTML5 files upload!");
             }
-        }
-    });
+        });
 
-    //Create folder button clicked
-    $("#createFolderButton").on("click", function () {
-        var folderName = prompt("Enter folder name", "New folder");
-        if (folderName != null) {
-            var folderFullPath = $("#currentPath").text() + "\\" + folderName;
-            var data = new FormData();
-            data.append("path", folderFullPath);
-
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("CreateFolder", "Account")",
-                contentType: false,
-                processData: false,
-                data: data,
-                success: function(result) {
-                    alert(result);
-                    callUrl();
-                },
-                error: function (xhr, status, p3) {
-                    alert(xhr.responseText);
-                }
-            });
-        }
-    });
-
-    //Remove button clicked
-    function removeButtonClicked(name) {
-        var fullPath = $("#currentPath").text() + "\\" + name;
-        var isDeleteConfirmed = confirm("Delete?");
-        if (isDeleteConfirmed) {
-            $.ajax({
-                url: "@Url.Action("RemoveElement", "Account")",
-                type: "GET",
-                data: {path : fullPath},
-                success: function(result) {
-                    alert(result);
-                    callUrl();
-                },
-                error: function (xhr, status, p3) {
-                    alert(xhr.responseText);
-                }
-            });
-        }
-    };
+        //Remove button clicked
+        function removeButtonClicked(name) {
+            var fullPath = $("#currentPath").text() + "\\" + name;
+            var isDeleteConfirmed = confirm("Delete?");
+            if (isDeleteConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("RemoveElement", "Account")",
+                    type: "GET",
+                    data: { path: fullPath },
+                    success: function (result) {
+                        alert(result);
+                        callUrl();
+                    },
+                    error: function (xhr, status, p3) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+        };
     </script>
-}
-
-@section styles {
-    <style type="text/css">
-        /* Create new note page styles */
-        .upload {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .upload + label {
-            border: none; /* Remove borders */
-            color: black; /* Add a text color */
-            padding: 14px 28px; /* Add some padding */
-            cursor: pointer;
-            background-color: #e7e7e7;
-            display: inline-block;
-        }
-
-        .upload:focus + label {
-            cursor: pointer;
-            outline: 1px dotted #000;
-            outline: -webkit-focus-ring-color auto 5px;
-        }
-    </style>
 }

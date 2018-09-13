@@ -1,32 +1,37 @@
 ﻿@model CloudBox.WebUI.Models.LoginModel
 
+<link href="~/Content/Account/login.css" rel="stylesheet" />
+
 <div class="modal-content">
     <div class="modal-header">
-        <button class="close" data-dismiss="modal" area-hidden="true">x</button>
         <h4>Log in</h4>
+        <span class="button-close" data-dismiss="modal">&times;</span>
     </div>
     <div class="modal-body">
         @using (Html.BeginForm())
         {
             @Html.ValidationSummary()
             @Html.AntiForgeryToken()
-            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
             <div class="form-group">
                 <label>Name</label>
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.UserName, new {@class = "form-control"})
             </div>
             <div class="form-group">
                 <label>Password</label>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
             </div>
-            <div class="checkbox">
-                <label>@Html.CheckBoxFor(m => m.RememberMe)&nbsp;Remeber me</label>
+            <div>
+                <label class="checkbox-container">Remember me
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    <span class="checkmark"></span>
+                </label>
             </div>
             <div>
                 Don't have account? @Html.ActionLink("Register", "Register")
             </div>
             <div class="modal-footer">
-                <input class="btn btn-primary" type="submit" value="Log in" />
+                <input class="btn btn-primary" type="submit" value="Log in"/>
             </div>
         }
     </div>

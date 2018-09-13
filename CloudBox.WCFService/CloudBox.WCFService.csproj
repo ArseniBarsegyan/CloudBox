@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,6 +84,7 @@
     <Compile Include="CloudService.svc.cs">
       <DependentUpon>CloudService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ConstantHelper.cs" />
     <Compile Include="ICloudService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
